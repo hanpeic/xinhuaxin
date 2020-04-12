@@ -1,0 +1,10 @@
+<nav class="navbar navbar-light bg-primary text-white">
+  <a class="" href="javascript:history.back()">
+    <img src="/assets/icons/left.svg" width="25" height="25" class="left-image" alt="">
+  </a>
+  <span class="title">门店列表</span>
+</nav>
+
+<div *ngFor="let site of siteList">
+  <app-site [site]="site" ></app-site>
+</div>
