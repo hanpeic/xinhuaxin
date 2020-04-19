@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiEndpoint: 'http://localhost:4200/ycmj/api/phone'
+  apiEndpoint: '/ycmj/api/phone'
 };
 
 /*
