@@ -1,0 +1,11 @@
+<p>调研</p>
+<button type="button" class="btn btn-outline-dark btn-lg btn-detail" (click)="beginSignin()">签到</button>
+<div class="snapshot" *ngIf="webcamImage">
+  <h2>调研中</h2>
+  <img [src]="webcamImage.imageAsDataUrl" width="100%"/>
+</div>
+
+<h4 *ngIf="errors.length > 0">Messages:</h4>
+<ul *ngFor="let error of errors">
+  <li>{{error | json}}</li>
+</ul>

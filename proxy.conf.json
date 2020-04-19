@@ -1,0 +1,8 @@
+{
+  "/ycmj/api/phone/*": {
+    "target": "http://180.158.5.40:8089",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+}

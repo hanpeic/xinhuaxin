@@ -1,6 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './services/auth.interceptor';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
@@ -13,6 +15,11 @@ import { SiteComponent } from './components/site/site.component';
 import { RoutesComponent } from './components/routes/routes.component';
 import { RouteComponent } from './components/route/route.component';
 import { MenuComponent } from './components/menu/menu.component';
+import { OnsiteComponent } from './components/onsite/onsite.component';
+import {WebcamModule} from 'ngx-webcam';
+import { SignInComponent } from './components/onsite/sign-in/sign-in.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { LoginComponent } from './components/login/login.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,13 +30,21 @@ import { MenuComponent } from './components/menu/menu.component';
     SiteComponent,
     RoutesComponent,
     RouteComponent,
-    MenuComponent
+    MenuComponent,
+    OnsiteComponent,
+    SignInComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatSliderModule
+    MatSliderModule,
+    WebcamModule,
+    MatDialogModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

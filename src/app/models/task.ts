@@ -1,8 +1,9 @@
 export class Task {
-  name: string;
-  id: string;
-  manager: string;
-  phone: string;
-  period: string;
-  status: string;
+  taskId: string;
+  taskName: string;
+  pmName: string;
+  pmPhone: string;
+  taskBegDate: string;
+  taskEndDate: string;
+  taskStatus: number;
 }

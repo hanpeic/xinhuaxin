@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Task} from '../../models/task';
-
+import { RequestService } from '../../services/request.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -8,10 +8,16 @@ import {Task} from '../../models/task';
 })
 export class HomeComponent implements OnInit {
   taskList: Task[];
-  constructor() { }
+  taskTotal: number;
+  taskDoneNum: number;
+  taskUndoneNum: number;
+  storeTotal: number;
+  storeDoneNum: number;
+  storeUndoneNum: number;
+  constructor(private requestService: RequestService) { }
 
   ngOnInit(): void {
-    const task1 = new Task();
+    /*const task1 = new Task();
     task1.id = '20190122111';
     task1.manager = '王三';
     task1.name = '奥迪门店调研项目';
@@ -35,7 +41,26 @@ export class HomeComponent implements OnInit {
     this.taskList = [];
     this.taskList.push(task1);
     this.taskList.push(task2);
-    this.taskList.push(task3);
+    this.taskList.push(task3);*/
+    this.fetchHome();
   }
 
+  fetchHome() {
+    this.requestService.retrieveHome().subscribe(res => {
+      console.log(res);
+      if (res.code === 100) {
+        this.taskTotal = res.taskTotal;
+        this.taskDoneNum = res.taskDoneNum;
+        this.taskUndoneNum = res.taskUndoneNum;
+        this.storeTotal = res.storeTotal;
+        this.storeDoneNum = res.storeDoneNum;
+        this.storeUndoneNum = res.storeUndoneNum;
+        this.taskList = res.taskDoing;
+      }
+
+    }, error => {
+      // this.alertService.error(error);
+      console.log(error);
+    });
+  }
 }

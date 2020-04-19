@@ -1,0 +1,8 @@
+<div><i class="icon ion-ios-close mbsc-pull-right" (click)="close()"></i></div>
+<h4 mat-dialog-title class="justify-content-center text-center">签到</h4>
+<div mat-dialog-content class="justify-content-center">
+  请对准店门，按下拍照按钮签到开始
+  <webcam [height]="300" [width]="300" [trigger]="triggerObservable" (imageCapture)="handleImage($event)"
+  ></webcam>
+  <button class="actionBtn" (click)="triggerSnapshot();">拍照</button>
+</div>

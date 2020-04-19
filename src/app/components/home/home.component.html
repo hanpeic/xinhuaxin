@@ -1,9 +1,9 @@
 <div class="header"><span class="task">任务情况</span></div>
 <div class="container">
   <div class="row mt-4">
-    <div class="col-4 text-center task-number task-total">5</div>
-    <div class="col-4 text-center task-number task-open">2</div>
-    <div class="col-4 text-center task-number task-done">3</div>
+    <div class="col-4 text-center task-number task-total">{{taskTotal}}</div>
+    <div class="col-4 text-center task-number task-open">{{taskUndoneNum}}</div>
+    <div class="col-4 text-center task-number task-done">{{taskDoneNum}}</div>
   </div>
   <div class="row mt-1">
     <div class="col-4 text-center task-number task-total" style="font-size: 14px;">任务总数</div>
@@ -11,9 +11,9 @@
     <div class="col-4 text-center task-number task-done" style="font-size: 14px;">已完成任务</div>
   </div>
   <div class="row mt-5">
-    <div class="col-4 text-center task-number task-total">200</div>
-    <div class="col-4 text-center task-number task-open">90</div>
-    <div class="col-4 text-center task-number task-done">110</div>
+    <div class="col-4 text-center task-number task-total">{{storeTotal}}</div>
+    <div class="col-4 text-center task-number task-open">{{storeUndoneNum}}</div>
+    <div class="col-4 text-center task-number task-done">{{storeDoneNum}}</div>
   </div>
   <div class="row mt-1">
     <div class="col-4 text-center task-number task-total" style="font-size: 14px;">任务门店数</div>

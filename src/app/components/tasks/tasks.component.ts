@@ -13,7 +13,7 @@ export class TasksComponent implements OnInit {
   taskList: Task[];
   ngOnInit(): void {
     this.filter = 'all';
-    const task1 = new Task();
+    /*const task1 = new Task();
     task1.id = '20190122111';
     task1.manager = '王三';
     task1.name = '奥迪门店调研项目';
@@ -29,7 +29,7 @@ export class TasksComponent implements OnInit {
     task2.status = '0';
     this.taskList = [];
     this.taskList.push(task1);
-    this.taskList.push(task2);
+    this.taskList.push(task2);*/
   }
   filterTask(filter: string) {
     if (this.filter !== filter) {
