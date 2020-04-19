@@ -20,6 +20,7 @@ import {WebcamModule} from 'ngx-webcam';
 import { SignInComponent } from './components/onsite/sign-in/sign-in.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { LoginComponent } from './components/login/login.component';
+import { AlertComponent } from './components/alert/alert.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,7 +34,8 @@ import { LoginComponent } from './components/login/login.component';
     MenuComponent,
     OnsiteComponent,
     SignInComponent,
-    LoginComponent
+    LoginComponent,
+    AlertComponent
   ],
   imports: [
     BrowserModule,

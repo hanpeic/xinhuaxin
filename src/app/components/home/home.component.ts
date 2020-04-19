@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {Task} from '../../models/task';
 import { RequestService } from '../../services/request.service';
+import { AuthenticationService } from '../../services/authentication-service.service';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -14,7 +16,8 @@ export class HomeComponent implements OnInit {
   storeTotal: number;
   storeDoneNum: number;
   storeUndoneNum: number;
-  constructor(private requestService: RequestService) { }
+  constructor(private requestService: RequestService,
+              private authenticationService: AuthenticationService) { }
 
   ngOnInit(): void {
     /*const task1 = new Task();
@@ -61,6 +64,8 @@ export class HomeComponent implements OnInit {
     }, error => {
       // this.alertService.error(error);
       console.log(error);
+      this.authenticationService.logout();
+      window.location.reload();
     });
   }
 }

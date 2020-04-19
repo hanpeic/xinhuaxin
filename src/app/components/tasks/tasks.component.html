@@ -7,6 +7,6 @@
 </div>
 <div *ngFor="let task of taskList">
   <app-task [task]="task" [showStatus]="true" *ngIf="filter == 'all'
-  || filter == 'running' && task.status == '0' || filter == 'done' && task.status == '1'"></app-task>
+  || filter == 'running' && task.taskStatus == 0 || filter == 'done' && task.taskStatus == 1"></app-task>
 </div>
 <app-menu></app-menu>

@@ -6,14 +6,15 @@ import {SitesComponent} from './components/sites/sites.component';
 import {RoutesComponent} from './components/routes/routes.component';
 import {OnsiteComponent} from './components/onsite/onsite.component';
 import {LoginComponent} from './components/login/login.component';
+import { AuthGuard } from './services/auth.guard';
 
 const routes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: 'home'},
-  { path: 'home', component: HomeComponent },
-  { path: 'tasks', component: TasksComponent },
-  { path: 'sites', component: SitesComponent },
-  { path: 'routes', component: RoutesComponent },
-  { path: 'onsite', component: OnsiteComponent },
+  { path: '', pathMatch: 'full', redirectTo: 'home', canActivate: [AuthGuard] },
+  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: 'tasks', component: TasksComponent, canActivate: [AuthGuard] },
+  { path: 'sites', component: SitesComponent, canActivate: [AuthGuard] },
+  { path: 'routes', component: RoutesComponent, canActivate: [AuthGuard] },
+  { path: 'onsite', component: OnsiteComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent }
 ];
 

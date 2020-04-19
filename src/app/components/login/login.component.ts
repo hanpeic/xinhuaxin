@@ -3,20 +3,21 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User } from '../../models/user';
 import { AuthenticationService } from '../../services/authentication-service.service';
+import { AlertService} from "../../services/alert.service";
 
-@Component({ templateUrl: 'login.component.html' })
+@Component({ templateUrl: 'login.component.html', styleUrls: ['./login.component.scss'] })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   loading = false;
   submitted = false;
-  // returnUrl: string;
+  returnUrl: string;
 
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
     private authenticationService: AuthenticationService,
-    //private alertService: AlertService
+    private alertService: AlertService
   ) {
     // redirect to home if already logged in
     if (this.authenticationService.currentUserValue) {
@@ -31,7 +32,7 @@ export class LoginComponent implements OnInit {
     });
 
     // get return url from route parameters or default to '/'
-    // this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
   // convenience getter for easy access to form fields
@@ -41,7 +42,7 @@ export class LoginComponent implements OnInit {
     this.submitted = true;
 
     // reset alerts on submit
-    //this.alertService.clear();
+    this.alertService.clear();
 
     // stop here if form is invalid
     if (this.loginForm.invalid) {
@@ -56,12 +57,14 @@ export class LoginComponent implements OnInit {
             const user = new User();
             user.username = this.f.username.value;
             this.authenticationService.setUserInfo(user);
-            this.router.navigate(['/']);
+            this.router.navigate([this.returnUrl]);
+          } else {
+            this.alertService.error(data.msg);
           }
           this.loading = false;
         },
         error => {
-          // this.alertService.error(error);
+          this.alertService.error('登录失败，请重试');
           this.loading = false;
         });
   }
