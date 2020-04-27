@@ -24,6 +24,7 @@ import { AlertComponent } from './components/alert/alert.component';
 import { MyinfoComponent } from './components/myinfo/myinfo.component';
 import { QuestionComponent } from './components/question/question.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatInputModule} from '@angular/material/input';
 import { TaskDetailComponent } from './components/task-detail/task-detail.component';
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { TaskDetailComponent } from './components/task-detail/task-detail.compon
     WebcamModule,
     MatDialogModule,
     MatCheckboxModule,
+    MatInputModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule

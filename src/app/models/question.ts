@@ -18,4 +18,7 @@ export class Question {
   showPreviousBtn: boolean;
   subjectid: string;
   code: number;
+  optResult: string;
+  optRelaFa: string;
+  situDesc: string;
 }

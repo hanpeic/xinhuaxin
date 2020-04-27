@@ -1,14 +1,48 @@
-<nav class="navbar navbar-light bg-primary text-white title-bar">
-  <span class="title">{{question.title ? question.title : '恭喜，问卷完成！'}}</span>
+<nav class="navbar navbar-light bg-primary text-white title-bar" *ngIf="question">
+  <span class="title">{{ question.title ? question.subSort + '.' + question.title : '恭喜，问卷完成！'}}</span>
 </nav>
-<div class="container mb-4 mt-3" *ngIf="question.title">
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()" *ngIf="question && question.title">
+  <div class="container mt-4">
+
+    <div *ngFor="let answer of question.resOptList" >
+      <mat-checkbox formControlName="{{answer.optSort.toString()}}" (change)="checkAnswer(answer.optSort.toString(), $event)" [disabled]="disableArray[answer.optSort.toString()]">{{answer.optDesc}}</mat-checkbox>
+    </div>
+    <mat-form-field>
+      <mat-label>备注</mat-label>
+      <textarea matInput [(ngModel)]="situDesc" [ngModelOptions]="{standalone: true}"
+                cdkTextareaAutosize
+                #autosize="cdkTextareaAutosize"
+                cdkAutosizeMinRows="1"
+                cdkAutosizeMaxRows="5"></textarea>
+    </mat-form-field>
+    <div class="form-group">
+      <button [disabled]="loading" class="btn btn-primary">
+        <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+        {{ question.showNextBtn ? '保存并跳转到下一题' : '保存并完成问卷'}}
+      </button>
+    </div>
+  </div>
+</form>
+<div class="container">
+  <button class="btn btn-primary" [disabled]="loading" *ngIf="question && question.showPreviousBtn" (click)="gotoPrevious()">
+    <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+    前一题
+  </button>
+</div>
+<div class="container mt-5">
+  <button class="btn btn-primary" *ngIf="question && !question.title && question.code == 100" (click)="gotoOnSite()">
+    返回调研页面
+  </button>
+</div>
+<div class="container mb-4 mt-3" *ngIf="question && question.title">
   <div class="row">
     <div class="col-6"><span class="item-title">模块:</span>{{question.module}}</div>
     <div class="col-6 "><span class="item-title">代码:</span>{{question.subCode}}</div>
   </div>
 
   <div class="row mt-3">
-      <div class="col-12 item-title"><b>判断标准:</b></div>
+    <div class="col-12 item-title"><b>判断标准:</b></div>
   </div>
   <div class="row">
     <div class="col-12 pre-line">{{question.standard}}</div>
@@ -27,29 +61,4 @@
   <div class="row">
     <div class="col-12 pre-line">{{question.deductDesc}}</div>
   </div>
-</div>
-<form [formGroup]="form" (ngSubmit)="onSubmit()" *ngIf="question.title">
-  <div class="container">
-
-    <div *ngFor="let answer of question.resOptList" >
-      <mat-checkbox formControlName="{{answer.optSort.toString()}}" >{{answer.optDesc}}</mat-checkbox>
-    </div>
-
-    <div class="form-group">
-      <button [disabled]="loading" class="btn btn-primary">
-        <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-        {{ question.showNextBtn ? '保存并跳转到下一题' : '保存并完成问卷'}}
-      </button>
-    </div>
-  </div>
-</form>
-<div class="container">
-  <button class="btn btn-primary" *ngIf="question.showPreviousBtn" (click)="gotoPrevious()">
-    前一题
-  </button>
-</div>
-<div class="container mt-5">
-  <button class="btn btn-primary" *ngIf="!question.title && question.code == 100" (click)="gotoOnSite()">
-    返回调研页面
-  </button>
 </div>

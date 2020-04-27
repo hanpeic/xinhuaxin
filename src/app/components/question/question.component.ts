@@ -4,6 +4,10 @@ import {Question} from '../../models/question';
 import {RequestService} from '../../services/request.service';
 import {AuthenticationService} from '../../services/authentication-service.service';
 import {ActivatedRoute, Router} from '@angular/router';
+import {CdkTextareaAutosize} from '@angular/cdk/text-field';
+import { NgZone, ViewChild} from '@angular/core';
+import {take} from 'rxjs/operators';
+import {AlertService} from "../../services/alert.service";
 
 @Component({
   selector: 'app-question',
@@ -15,37 +19,132 @@ export class QuestionComponent implements OnInit {
   question: Question;
   lineId: string;
   loading = false;
+  disableArray = {};
+  ruleHash = {};
+  situDesc = '';
   constructor(private requestService: RequestService,
               private activatedRoute: ActivatedRoute,
               private router: Router,
+              private _ngZone: NgZone,
+              private alertService: AlertService,
               private authenticationService: AuthenticationService) { }
+  @ViewChild('autosize') autosize: CdkTextareaAutosize;
+  triggerResize() {
+    // Wait for changes to be applied, then trigger textarea resize.
+    this._ngZone.onStable.pipe(take(1))
+      .subscribe(() => this.autosize.resizeToFitContent(true));
+  }
 
   ngOnInit(): void {
     this.lineId = this.activatedRoute.snapshot.queryParamMap.get('lineId');
     this.getQuestion(false, 'next', this.lineId, null, -1,
       null, null, null, null);
-    /*this.question = new Question();
-    this.question.resOptList = [
-        {
-          optSort: 11,
-          optDesc: '11.是'
-        },
-        {
-          optSort: 12,
-          optDesc: '21. 否， 在线平台没有提供试驾预约界面'
-        }
-      ];
-    this.form = this.buildFormGroup(this.question);*/
   }
 
   buildFormGroup(question: Question) {
     const group: any = {};
-    question.resOptList.forEach(answer =>{
+    this.disableArray = {};
+    question.resOptList.forEach(answer => {
       group[answer.optSort.toString()] = new FormControl('');
+      this.disableArray[answer.optSort.toString()] = false;
     });
     return new FormGroup(group);
   }
+  updateAnswer(optResult) {
+    optResult.split(',').forEach(result => {
+      this.form.get(result).patchValue(true);
+    });
+  }
+  updateDisable() {
+    if (this.form.get('11').value) {
+      this.multiChangeDisable('11', true);
+    } else {
+      let ticked = false;
+      (Object as any).keys(this.form.controls).forEach(key => {
+        if (key !== '11') {
+          const value = this.form.get(key).value;
+          if (value) {
+            ticked = true;
+            const rules = this.ruleHash[key];
+            if (rules) {
+              rules.forEach(rule => {
+                this.disableArray[rule] = true;
+              });
+            }
+          }
+        }
+      });
+      if (ticked) {
+        this.disableArray['11'] = true;
+      } else {
+        this.multiChangeDisable(null, false);
+      }
+    }
+  }
 
+  updateEnable(key) {
+    if (key === '11') {
+      this.multiChangeDisable(null, false);
+    } else {
+      let ticked = false;
+      const rules = this.ruleHash[key];
+      if (rules) {
+        rules.forEach(rule => {
+          let isDisable = false;
+          this.ruleHash[rule].forEach(item => {
+            if (this.form.get(item).value) {
+              isDisable = true;
+            }
+          });
+          if (!isDisable) {
+            this.disableArray[rule] = false;
+          }
+        });
+      }
+      (Object as any).keys(this.form.controls).forEach(key => {
+        if (key !== '11') {
+          const value = this.form.get(key).value;
+          if (value) {
+            ticked = true;
+          }
+        }
+      });
+      if (!ticked) {
+        this.disableArray['11'] = false;
+      }
+    }
+  }
+
+  multiChangeDisable(except, value) {
+    Object.keys(this.disableArray).forEach(key => {
+      if (key !== except) {
+        this.disableArray[key] = value;
+      }
+    });
+  }
+
+  buildRule(ruleStr) {
+    const rules = ruleStr.split(',');
+    rules.forEach(rule => {
+      rule.split(':').forEach(singleRule => {
+        this.ruleHash[singleRule] = [];
+        rules.forEach(rule2 => {
+          if (rule2.indexOf(singleRule) < 0) {
+            this.ruleHash[singleRule] = this.ruleHash[singleRule].concat(rule2.split(':'));
+          }
+        });
+      });
+    });
+  }
+
+  checkAnswer(key, event) {
+    console.log(key + ':' + this.form.get(key).value);
+    if (this.form.get(key).value) {
+      this.updateDisable();
+    } else {
+      this.updateEnable(key);
+    }
+  }
   getQuestion(isSave, direction, lineId, modelSubjectId, subSort, optResult, isLast, subjectId, situDesc) {
     this.requestService.getQuestion(isSave, direction, lineId, modelSubjectId,
       subSort, optResult, isLast, subjectId, situDesc).subscribe(res => {
@@ -53,6 +152,20 @@ export class QuestionComponent implements OnInit {
       if (res.code === 100) {
         this.question = res;
         this.form = this.buildFormGroup(this.question);
+        if (this.question.optRelaFa) {
+          this.buildRule(this.question.optRelaFa);
+        } else {
+          this.ruleHash = {};
+        }
+        if (this.question.optResult) {
+          this.updateAnswer(this.question.optResult);
+          this.updateDisable();
+        }
+        if (this.question.situDesc) {
+          this.situDesc = this.question.situDesc;
+        } else {
+          this.situDesc = '';
+        }
       }
       this.loading = false;
 
@@ -67,7 +180,7 @@ export class QuestionComponent implements OnInit {
 
   onSubmit() {
     let result = '';
-    this.loading = true;
+    this.alertService.clear();
     (Object as any).keys(this.form.controls).forEach(key => {
       const value = this.form.get(key).value;
       if (value) {
@@ -77,13 +190,26 @@ export class QuestionComponent implements OnInit {
     if (result.endsWith(',')) {
       result = result.substring(0, result.length - 1);
     }
+    if (result.length === 0) {
+      this.alertService.error('请至少选择一项');
+      return;
+    }
+    if (this.form.get('89').value) {
+      if (this.situDesc.length === 0) {
+        this.alertService.error('选择89请必须在备注说明');
+        return;
+      }
+    }
+    this.loading = true;
     this.getQuestion(true, 'next', this.lineId,
       this.question.modelSubjectId, this.question.subSort, result, this.question.last, this.question.subjectid
-    , null);
+    , this.situDesc);
 
   }
 
   gotoPrevious() {
+    this.loading = true;
+    this.alertService.clear();
     this.getQuestion(false, 'previous', this.lineId,
       this.question.modelSubjectId, this.question.subSort, null, this.question.last, this.question.subjectid
       , null);
