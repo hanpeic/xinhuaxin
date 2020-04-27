@@ -1,8 +1,3 @@
-.btn-signin {
-  font-family: 微软雅黑;
-  font-size: 14px;
-  padding: 10px 20px 10px 20px;
-}
 .left-image {
   filter: invert(93%) sepia(100%) saturate(33%) hue-rotate(256deg) brightness(107%) contrast(100%);
 }
@@ -13,4 +8,8 @@
 }
 .container {
   font-family: 微软雅黑;
+}
+.item-title {
+  font-weight: 500;
+  color: rgb(255, 102, 0);
 }

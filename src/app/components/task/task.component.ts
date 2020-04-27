@@ -17,6 +17,9 @@ export class TaskComponent implements OnInit {
   }
 
   goSites() {
-    this.router.navigate(['sites']);
+    this.router.navigate(['sites'], {queryParams: {taskId: this.task.tId}});
+  }
+  goDetails() {
+    this.router.navigate(['task-detail'], { queryParams: { taskId: this.task.tId } });
   }
 }

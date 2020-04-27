@@ -58,7 +58,7 @@ export class HomeComponent implements OnInit {
         this.storeTotal = res.storeTotal;
         this.storeDoneNum = res.storeDoneNum;
         this.storeUndoneNum = res.storeUndoneNum;
-        this.taskList = res.taskDoing;
+        this.taskList = res.taskUndone;
       }
 
     }, error => {

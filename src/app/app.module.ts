@@ -21,6 +21,10 @@ import { SignInComponent } from './components/onsite/sign-in/sign-in.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { LoginComponent } from './components/login/login.component';
 import { AlertComponent } from './components/alert/alert.component';
+import { MyinfoComponent } from './components/myinfo/myinfo.component';
+import { QuestionComponent } from './components/question/question.component';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import { TaskDetailComponent } from './components/task-detail/task-detail.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,7 +39,10 @@ import { AlertComponent } from './components/alert/alert.component';
     OnsiteComponent,
     SignInComponent,
     LoginComponent,
-    AlertComponent
+    AlertComponent,
+    MyinfoComponent,
+    QuestionComponent,
+    TaskDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -44,6 +51,7 @@ import { AlertComponent } from './components/alert/alert.component';
     MatSliderModule,
     WebcamModule,
     MatDialogModule,
+    MatCheckboxModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule

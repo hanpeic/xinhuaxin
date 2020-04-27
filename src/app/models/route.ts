@@ -1,7 +1,14 @@
 export class Route {
-  name: string;
+  lineId: string;
+  assessorId: string;
+  assessorName: string;
+  distrId: string;
+  distriName: string;
+  projId: string;
+  projName: string;
   status: number;
-  date: string;
-  address1: string;
-  address2: string;
+  statuscn: string;
+  surveyDate: string;
+  orgaddress: string;
+  address: string;
 }

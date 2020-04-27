@@ -5,5 +5,11 @@ export class Task {
   pmPhone: string;
   taskBegDate: string;
   taskEndDate: string;
-  taskStatus: number;
+  status: number;
+  tId: string;
+  projType: string;
+  manufactorName: string;
+  zoneCode: string;
+  storeDoneNum: number;
+  storeUndoneNum: number;
 }

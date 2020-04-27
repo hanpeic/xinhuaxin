@@ -4,7 +4,15 @@
     <div class="col-6 text-center {{ filter == 'tomorrow' ? 'active' : '' }}" (click)="filterTask('tomorrow')">明日拜访</div>
   </div>
 </div>
-<div *ngFor="let route of routeList">
-  <app-route [route]="route" ></app-route>
+<div *ngIf="filter == 'today'">
+  <div *ngFor="let route of routeList">
+    <app-route [route]="route" ></app-route>
+  </div>
 </div>
+<div *ngIf="filter == 'tomorrow'">
+  <div *ngFor="let route of otherRouteList">
+    <app-route [route]="route" ></app-route>
+  </div>
+</div>
+<div style="height: 42px"></div>
 <app-menu></app-menu>

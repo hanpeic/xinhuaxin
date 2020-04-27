@@ -7,6 +7,9 @@ import {RoutesComponent} from './components/routes/routes.component';
 import {OnsiteComponent} from './components/onsite/onsite.component';
 import {LoginComponent} from './components/login/login.component';
 import { AuthGuard } from './services/auth.guard';
+import {MyinfoComponent} from './components/myinfo/myinfo.component';
+import {QuestionComponent} from './components/question/question.component';
+import {TaskDetailComponent} from './components/task-detail/task-detail.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home', canActivate: [AuthGuard] },
@@ -15,6 +18,9 @@ const routes: Routes = [
   { path: 'sites', component: SitesComponent, canActivate: [AuthGuard] },
   { path: 'routes', component: RoutesComponent, canActivate: [AuthGuard] },
   { path: 'onsite', component: OnsiteComponent, canActivate: [AuthGuard] },
+  { path: 'myinfo', component: MyinfoComponent, canActivate: [AuthGuard] },
+  { path: 'question', component: QuestionComponent, canActivate: [AuthGuard] },
+  { path: 'task-detail', component: TaskDetailComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent }
 ];
 

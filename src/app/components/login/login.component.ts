@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User } from '../../models/user';
 import { AuthenticationService } from '../../services/authentication-service.service';
-import { AlertService} from "../../services/alert.service";
+import { AlertService} from '../../services/alert.service';
 
 @Component({ templateUrl: 'login.component.html', styleUrls: ['./login.component.scss'] })
 export class LoginComponent implements OnInit {
@@ -57,7 +57,8 @@ export class LoginComponent implements OnInit {
             const user = new User();
             user.username = this.f.username.value;
             this.authenticationService.setUserInfo(user);
-            this.router.navigate([this.returnUrl]);
+            // this.router.navigate([this.returnUrl]);
+            this.router.navigateByUrl(this.returnUrl);
           } else {
             this.alertService.error(data.msg);
           }

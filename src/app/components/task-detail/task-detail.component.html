@@ -1,0 +1,44 @@
+<nav class="navbar navbar-light bg-primary text-white">
+  <a class="" href="javascript:history.back()">
+    <img src="/assets/icons/left.svg" width="25" height="25" class="left-image" alt="">
+  </a>
+  <span class="title">{{task.taskName}}</span>
+</nav>
+<div class="container mb-4 mt-3">
+  <div class="row">
+    <div class="col-6 item-title">任务编号:</div>
+    <div class="col-6 ">{{task.taskId}}</div>
+  </div>
+  <div class="row">
+    <div class="col-6 item-title">项目经理:</div>
+    <div class="col-6 ">{{task.pmName}}</div>
+  </div>
+  <div class="row">
+    <div class="col-6 item-title">联系方式:</div>
+    <div class="col-6 ">{{task.pmPhone}}</div>
+  </div>
+  <div class="row">
+    <div class="col-6 item-title">任务时间:</div>
+    <div class="col-6 ">{{task.taskBegDate}} - {{task.taskEndDate}}</div>
+  </div>
+  <div class="row">
+    <div class="col-6 item-title">任务类型</div>
+    <div class="col-6 ">{{task.projType}}</div>
+  </div>
+  <div class="row">
+    <div class="col-6 item-title">经销商</div>
+    <div class="col-6 ">{{task.manufactorName}}</div>
+  </div>
+  <div class="row">
+    <div class="col-6 item-title">地区</div>
+    <div class="col-6 ">{{task.zoneCode}}</div>
+  </div>
+  <div class="row">
+    <div class="col-6 item-title">已完成门店数量</div>
+    <div class="col-6 ">{{task.storeDoneNum}}</div>
+  </div>
+  <div class="row">
+    <div class="col-6 item-title">未完成门店数量</div>
+    <div class="col-6 ">{{task.storeUndoneNum}}</div>
+  </div>
+</div>

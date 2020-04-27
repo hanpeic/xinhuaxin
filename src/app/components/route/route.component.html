@@ -1,16 +1,16 @@
 <div class="container route-card">
   <div class="row no-gutters mt-2" style="margin-left: -5px; margin-right: 10px; padding-left: 0;">
-    <div class="col-9 route-name"> {{route.name}}</div>
-    <div class="col-3 text-right" style="color: rgb(102, 102, 102);" *ngIf="route.status == '1'">已完成</div>
-    <div class="col-3 text-right" style="color: rgb(51, 153, 51);" *ngIf="route.status == '2'">进行中</div>
-    <div class="col-3 text-right" style="color: rgb(255, 0, 0);" *ngIf="route.status == '0'">未开始</div>
+    <div class="col-9 route-name" (click)="goOnsite()"> {{route.distriName}}</div>
+    <div class="col-3 text-right" style="color: rgb(102, 102, 102);" *ngIf="route.status == 3 || route.status == 4">已完成</div>
+    <div class="col-3 text-right" style="color: rgb(51, 153, 51);" *ngIf="route.status == 2">进行中</div>
+    <div class="col-3 text-right" style="color: rgb(255, 0, 0);" *ngIf="route.status == 1">未开始</div>
   </div>
   <div class="row no-gutters black mt-2" style="margin-left: -5px; margin-right: 10px;">
-    <div class="col-8">{{route.address1}}</div>
-    <div class="col-4 text-right">{{route.date}}</div>
+    <div class="col-8">{{route.projName}}</div>
+    <div class="col-4 text-right">{{route.surveyDate}}</div>
   </div>
   <div class="row no-gutters black mt-2 mb-2" style="margin-left: -5px; margin-right: 10px;">
-    <div class="col-8">{{route.address2}}</div>
-    <div class="col-4 text-right"><img src="/assets/icons/cursor.svg" width="25" height="25" class="cursor"></div>
+    <div class="col-8">{{route.address}}</div>
+    <div class="col-4 text-right" (click)="goOnsite()"><img src="/assets/icons/cursor.svg" width="25" height="25" class="cursor"></div>
   </div>
 </div>
