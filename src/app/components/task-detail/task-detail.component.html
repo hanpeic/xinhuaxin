@@ -1,10 +1,10 @@
-<nav class="navbar navbar-light bg-primary text-white">
+<nav class="navbar navbar-light bg-primary text-white" *ngIf="task">
   <a class="" href="javascript:history.back()">
     <img src="/assets/icons/left.svg" width="25" height="25" class="left-image" alt="">
   </a>
   <span class="title">{{task.taskName}}</span>
 </nav>
-<div class="container mb-4 mt-3">
+<div class="container mb-4 mt-3" *ngIf="task">
   <div class="row">
     <div class="col-6 item-title">任务编号:</div>
     <div class="col-6 ">{{task.taskId}}</div>
