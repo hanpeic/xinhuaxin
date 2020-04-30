@@ -26,7 +26,6 @@ import { QuestionComponent } from './components/question/question.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatInputModule} from '@angular/material/input';
 import { TaskDetailComponent } from './components/task-detail/task-detail.component';
-import { WebUploaderModule, WebUploaderConfig, Options, OptionsPick, OptionsThumb } from 'ngx-webuploader';
 import { FileComponent } from './components/question/file/file.component';
 @NgModule({
   declarations: [
