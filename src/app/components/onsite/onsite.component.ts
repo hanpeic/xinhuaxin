@@ -78,7 +78,7 @@ export class OnsiteComponent implements OnInit {
         const latitude = position.coords.latitude;
         console.log('lat:' + latitude + ',long:' + longitude);
       }, (error) => {
-        console.log('error:' + error.code);
+        console.log('error:' + error.code + ',message:' + error.message);
       });
     } else {
       console.log('No support for geolocation');
