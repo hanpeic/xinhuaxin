@@ -21,4 +21,6 @@ export class Question {
   optResult: string;
   optRelaFa: string;
   situDesc: string;
+  picCount: number;
+  vidCount: number;
 }

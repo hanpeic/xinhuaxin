@@ -26,7 +26,8 @@ export class RequestService {
     return this.http.post<any>(`${environment.apiEndpoint}/savePersonInfo`, payload, { withCredentials: true });
   }
 
-  getQuestion(isSave, direction, lineId, modelSubjectId, subSort, optResult, isLast, subjectId, situDesc): Observable<any> {
+  getQuestion(isSave, direction, lineId, modelSubjectId, subSort, optResult, isLast,
+              subjectId, situDesc, uploadFile, uploadFileDel, uploadImage, uploadImageDel): Observable<any> {
     let payload = new HttpParams().set('isSave', isSave)
       .set('direction', direction)
       .set('lineId', lineId)
@@ -45,6 +46,18 @@ export class RequestService {
     }
     if (situDesc) {
       payload = payload.set('situDesc', situDesc);
+    }
+    if (uploadFile) {
+      payload = payload.set('projLineSuvSub_file', uploadFile);
+    }
+    if (uploadFileDel) {
+      payload = payload.set('projLineSuvSub_file__del', uploadFileDel);
+    }
+    if (uploadImage) {
+      payload = payload.set('projLineSuvSub_image', uploadImage);
+    }
+    if (uploadImageDel) {
+      payload = payload.set('projLineSuvSub_image__del', uploadImageDel);
     }
     return this.http.post<any>(`${environment.apiEndpoint}/getNextSubject`, payload, { withCredentials: true });
   }

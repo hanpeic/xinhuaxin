@@ -69,6 +69,21 @@ export class OnsiteComponent implements OnInit {
       this.alertService.error('签到失败！请重试并允许程序获取当前位置');
     }
   }
+  beginSignin2() {
+    console.log('begin signin');
+    if (navigator.geolocation) {
+      console.log('in geo');
+      navigator.geolocation.getCurrentPosition((position) => {
+        const longitude = position.coords.longitude;
+        const latitude = position.coords.latitude;
+        console.log('lat:' + latitude + ',long:' + longitude);
+      }, (error) => {
+        console.log('error:' + error.code);
+      });
+    } else {
+      console.log('No support for geolocation');
+    }
+  }
   beginTest() {
     this.router.navigate(['question'], {queryParams: {lineId: this.lineId}});
   }

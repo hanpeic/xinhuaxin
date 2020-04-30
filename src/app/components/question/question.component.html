@@ -16,6 +16,8 @@
                 cdkAutosizeMinRows="1"
                 cdkAutosizeMaxRows="5"></textarea>
     </mat-form-field>
+    <app-file [bizKey]="lineId + '-' + question.modelSubjectId" [picCount]="question.picCount"
+             [vidCount]="question.vidCount" *ngIf="question && showFile"></app-file>
     <div class="form-group">
       <button [disabled]="loading" class="btn btn-primary">
         <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
@@ -61,4 +63,6 @@
   <div class="row">
     <div class="col-12 pre-line">{{question.deductDesc}}</div>
   </div>
+</div>
+<div class="container">
 </div>

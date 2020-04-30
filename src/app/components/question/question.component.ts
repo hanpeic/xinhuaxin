@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import {FormGroup, FormControl, Validators} from '@angular/forms';
 import {Question} from '../../models/question';
 import {RequestService} from '../../services/request.service';
@@ -7,7 +7,8 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {CdkTextareaAutosize} from '@angular/cdk/text-field';
 import { NgZone, ViewChild} from '@angular/core';
 import {take} from 'rxjs/operators';
-import {AlertService} from "../../services/alert.service";
+import {AlertService} from '../../services/alert.service';
+import {FileComponent} from './file/file.component';
 
 @Component({
   selector: 'app-question',
@@ -22,10 +23,13 @@ export class QuestionComponent implements OnInit {
   disableArray = {};
   ruleHash = {};
   situDesc = '';
+  showFile = true;
+  @ViewChild(FileComponent) childFile: FileComponent;
   constructor(private requestService: RequestService,
               private activatedRoute: ActivatedRoute,
               private router: Router,
               private _ngZone: NgZone,
+              private changeDetector: ChangeDetectorRef,
               private alertService: AlertService,
               private authenticationService: AuthenticationService) { }
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
@@ -38,7 +42,7 @@ export class QuestionComponent implements OnInit {
   ngOnInit(): void {
     this.lineId = this.activatedRoute.snapshot.queryParamMap.get('lineId');
     this.getQuestion(false, 'next', this.lineId, null, -1,
-      null, null, null, null);
+      null, null, null, null, null, null, null, null);
   }
 
   buildFormGroup(question: Question) {
@@ -145,12 +149,16 @@ export class QuestionComponent implements OnInit {
       this.updateEnable(key);
     }
   }
-  getQuestion(isSave, direction, lineId, modelSubjectId, subSort, optResult, isLast, subjectId, situDesc) {
+  getQuestion(isSave, direction, lineId, modelSubjectId, subSort, optResult, isLast,
+              subjectId, situDesc, uploadFile, uploadFileDel, uploadImage, uploadImageDel) {
     this.requestService.getQuestion(isSave, direction, lineId, modelSubjectId,
-      subSort, optResult, isLast, subjectId, situDesc).subscribe(res => {
+      subSort, optResult, isLast, subjectId, situDesc, uploadFile, uploadFileDel, uploadImage, uploadImageDel).subscribe(res => {
       console.log(res);
       if (res.code === 100) {
+        this.showFile = false;
+        this.changeDetector.detectChanges();
         this.question = res;
+        this.showFile = true;
         this.form = this.buildFormGroup(this.question);
         if (this.question.optRelaFa) {
           this.buildRule(this.question.optRelaFa);
@@ -166,6 +174,7 @@ export class QuestionComponent implements OnInit {
         } else {
           this.situDesc = '';
         }
+        // this.childFile.ngOnInit();
       }
       this.loading = false;
 
@@ -201,10 +210,13 @@ export class QuestionComponent implements OnInit {
       }
     }
     this.loading = true;
+    const uploadFile = document.getElementById('uploadFile') as HTMLInputElement;
+    const uploadFileDel = document.getElementById('uploadFile__del') as HTMLInputElement;
+    const uploadImage = document.getElementById('uploadImage') as HTMLInputElement;
+    const uploadImageDel = document.getElementById('uploadImage__del') as HTMLInputElement;
     this.getQuestion(true, 'next', this.lineId,
       this.question.modelSubjectId, this.question.subSort, result, this.question.last, this.question.subjectid
-    , this.situDesc);
-
+    , this.situDesc, uploadFile.value, uploadFileDel.value, uploadImage.value, uploadImageDel.value);
   }
 
   gotoPrevious() {
@@ -212,7 +224,7 @@ export class QuestionComponent implements OnInit {
     this.alertService.clear();
     this.getQuestion(false, 'previous', this.lineId,
       this.question.modelSubjectId, this.question.subSort, null, this.question.last, this.question.subjectid
-      , null);
+      , null, null, null, null, null);
   }
 
   gotoOnSite() {
