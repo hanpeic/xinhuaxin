@@ -1,4 +1,7 @@
 <nav class="navbar navbar-light bg-primary text-white title-bar" *ngIf="question">
+  <a class="" (click)="gotoOnSite()">
+    <img src="/assets/icons/left.svg" width="25" height="25" class="left-image" alt="">
+  </a>
   <span class="title">{{ question.title ? question.subSort + '.' + question.title : '恭喜，问卷完成！'}}</span>
 </nav>
 
@@ -18,7 +21,7 @@
     </mat-form-field>
     <app-file [bizKey]="lineId + '-' + question.modelSubjectId" [picCount]="question.picCount"
              [vidCount]="question.vidCount" *ngIf="question && showFile"></app-file>
-    <div class="form-group">
+    <div class="form-group mt-3">
       <button [disabled]="loading" class="btn btn-primary">
         <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
         {{ question.showNextBtn ? '保存并跳转到下一题' : '保存并完成问卷'}}

@@ -13,6 +13,12 @@ app.use('/', proxy('http://180.158.5.40:8089', {
   }
 }));
 
+app.use('/ycmj', proxy('http://180.158.5.40:8089/', {
+  proxyReqPathResolver: function (req) {
+   return '/ycmj' + req.url;
+  }
+}));
+
 app.get('/*', function(req,res) {
 
   res.sendFile(path.join(__dirname+'/dist/xinhuaxin/index.html'));

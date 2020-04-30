@@ -1,7 +1,7 @@
 <nav class="navbar navbar-light bg-primary text-white title-bar">
   <span class="title">明检系统</span>
 </nav>
-<div class="logo"><img src="/assets/icons/app_icon.png" width="200" height="200"></div>
+<div class="logo"><img src="/assets/icons/app_icon.png" width="150" height="150"></div>
 <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
   <div class="container">
     <div class="form-group">
@@ -19,9 +19,9 @@
       </div>
     </div>
     <div class="form-group">
-      <button [disabled]="loading" class="btn btn-primary">
+      <button [disabled]="loading" class="btn btn-primary" style="width: 100%">
         <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-        登录
+        立即登录
       </button>
     </div>
   </div>

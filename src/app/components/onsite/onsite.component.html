@@ -1,5 +1,5 @@
 <nav class="navbar navbar-light bg-primary text-white" *ngIf="route">
-  <a class="" href="javascript:history.back()">
+  <a class="" (click)="gotoRoute()">
     <img src="/assets/icons/left.svg" width="25" height="25" class="left-image" alt="">
   </a>
   <span class="title">{{route.distriName}}</span>
@@ -20,13 +20,20 @@
 <div class="container mt-3 mb-3"  *ngIf="route">
   <div class="row">
     <div class="col-12">
-      <button type="button" class="btn btn-primary btn-lg btn-signin" (click)="beginSignin()">签到</button>
+      <button type="button" class="btn btn-primary btn-lg btn-signin" (click)="beginSignin()">
+        <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>签到</button>
       <button type="button" class="btn btn-primary btn-lg btn-signin" (click)="beginSignin2()">签到测试</button>
     </div>
   </div>
   <div class="row mt-4">
     <div class="col-12">
       <button type="button" class="btn btn-primary btn-lg btn-signin" (click)="beginTest()">填写问卷</button>
+    </div>
+  </div>
+  <div class="row mt-4">
+    <div class="col-12">
+      <button type="button" class="btn btn-primary btn-lg btn-signin" (click)="beginSignout()">
+        <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>签出</button>
     </div>
   </div>
 </div>

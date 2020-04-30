@@ -20,6 +20,7 @@ export class OnsiteComponent implements OnInit {
   public webcamImage: WebcamImage = null;
   lineId: string;
   route: Route;
+  loading = false;
 
   // webcam snapshot trigger
   // private trigger: Subject<void> = new Subject<void>();
@@ -47,26 +48,67 @@ export class OnsiteComponent implements OnInit {
     });
   } */
   beginSignin() {
+    this.alertService.clear();
+    this.loading = true;
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
         const longitude = position.coords.longitude;
         const latitude = position.coords.latitude;
         this.requestService.signin(this.lineId, longitude, latitude).subscribe(res => {
           console.log(res);
+          this.loading = false;
           if (res.code === 100) {
             this.alertService.success('签到成功！');
           }
 
         }, error => {
+          this.loading = false;
           // this.alertService.error(error);
           console.log(error);
           this.authenticationService.logout();
           window.location.reload();
         });
+      }, (error) => {
+        this.loading = false;
+        this.alertService.error('签到失败！请重试并允许程序获取当前位置');
+        console.log('error:' + error.code + ',message:' + error.message);
       });
     } else {
+      this.loading = false;
       console.log('No support for geolocation');
       this.alertService.error('签到失败！请重试并允许程序获取当前位置');
+    }
+  }
+  beginSignout() {
+    this.alertService.clear();
+    this.loading = true;
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        const longitude = position.coords.longitude;
+        const latitude = position.coords.latitude;
+        this.requestService.signout(this.lineId, longitude, latitude).subscribe(res => {
+          console.log(res);
+          this.loading = false;
+          if (res.code === 100) {
+            this.alertService.success('签出成功！');
+          }
+
+        }, error => {
+          // this.alertService.error(error);
+          console.log(error);
+          this.loading = false;
+          this.authenticationService.logout();
+          window.location.reload();
+        });
+      }, (error) => {
+        this.loading = false;
+        this.alertService.error('签出失败！请重试并允许程序获取当前位置');
+        console.log('error:' + error.code + ',message:' + error.message);
+      });
+    } else {
+      this.loading = false;
+      console.log('No support for geolocation');
+      this.alertService.error('签出失败！请重试并允许程序获取当前位置');
     }
   }
   beginSignin2() {
@@ -101,5 +143,8 @@ export class OnsiteComponent implements OnInit {
       this.authenticationService.logout();
       window.location.reload();
     });
+  }
+  gotoRoute() {
+    this.router.navigate(['routes']);
   }
 }
