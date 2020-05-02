@@ -22,7 +22,7 @@ export class ImageComponent implements OnInit {
     $('#uploadImageUploader').webuploader({
       id: 'uploadImage',
       bizKey: this.bizKey,
-      bizType: 'projLineSuvSub_image',
+      bizType: 'signin_image',
       readonly: this.readonly,
       returnPath: false,
       filePathInputId: '',
