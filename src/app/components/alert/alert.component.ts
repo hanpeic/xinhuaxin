@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-
 import { AlertService } from '../../services/alert.service';
+import {MatDialog} from '@angular/material/dialog';
+import {InfoComponent} from './info/info.component';
 @Component({
   selector: 'app-alert',
   templateUrl: './alert.component.html',
@@ -10,7 +11,8 @@ import { AlertService } from '../../services/alert.service';
 export class AlertComponent implements OnInit {
   private subscription: Subscription;
   message: any;
-  constructor(private alertService: AlertService) { }
+  constructor(private alertService: AlertService,
+              private matDialog: MatDialog) { }
 
   ngOnInit(): void {
     this.subscription = this.alertService.getAlert()
@@ -22,9 +24,19 @@ export class AlertComponent implements OnInit {
           case 'error':
             message.cssClass = 'alert alert-danger';
             break;
+          case 'alert':
+            const modalRef = this.matDialog.open(InfoComponent, {
+              minWidth: '250px',
+              data: {
+                message: message.text
+              }
+            });
+            break;
         }
-
         this.message = message;
+        if (message && message.type === 'alert') {
+          this.message.text = null;
+        }
       });
   }
 

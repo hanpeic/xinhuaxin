@@ -11,4 +11,6 @@ export class Route {
   surveyDate: string;
   orgaddress: string;
   address: string;
+  signinDate: string;
+  signoutDate: string;
 }

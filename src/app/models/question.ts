@@ -23,4 +23,6 @@ export class Question {
   situDesc: string;
   picCount: number;
   vidCount: number;
+  picMaxwidth: number;
+  picMaxheight: number;
 }

@@ -21,6 +21,7 @@ export class QuestionComponent implements OnInit {
   lineId: string;
   loading = false;
   disableArray = {};
+  enableArrayFromServer = {};
   ruleHash = {};
   situDesc = '';
   showFile = true;
@@ -51,6 +52,7 @@ export class QuestionComponent implements OnInit {
     question.resOptList.forEach(answer => {
       group[answer.optSort.toString()] = new FormControl('');
       this.disableArray[answer.optSort.toString()] = false;
+      this.enableArrayFromServer[answer.optSort.toString()] = answer.isAllowSelect;
     });
     return new FormGroup(group);
   }
@@ -175,6 +177,9 @@ export class QuestionComponent implements OnInit {
           this.situDesc = '';
         }
         // this.childFile.ngOnInit();
+      } else {
+        this.authenticationService.logout();
+        window.location.reload();
       }
       this.loading = false;
 
@@ -200,20 +205,35 @@ export class QuestionComponent implements OnInit {
       result = result.substring(0, result.length - 1);
     }
     if (result.length === 0) {
-      this.alertService.error('请至少选择一项');
+      this.alertService.alert('请至少选择一项!');
       return;
     }
     if (this.form.get('89').value) {
       if (this.situDesc.length === 0) {
-        this.alertService.error('选择89请必须在备注说明');
+        this.alertService.alert('选择89请必须在备注添加内容');
         return;
       }
     }
-    this.loading = true;
     const uploadFile = document.getElementById('uploadFile') as HTMLInputElement;
     const uploadFileDel = document.getElementById('uploadFile__del') as HTMLInputElement;
     const uploadImage = document.getElementById('uploadImage') as HTMLInputElement;
     const uploadImageDel = document.getElementById('uploadImage__del') as HTMLInputElement;
+    if (this.question.picCount && this.question.picCount > 0) {
+      const imageCount = uploadImage.value.split(',').filter(String).length;
+      if (this.question.picCount > imageCount) {
+        this.alertService.alert('请上传' + this.question.picCount + '张图片后再提交');
+        return;
+      }
+    }
+    if (this.question.vidCount && this.question.vidCount > 0) {
+      const imageCount = uploadFile.value.split(',').filter(String).length;
+      if (this.question.vidCount > imageCount) {
+        this.alertService.alert('请上传' + this.question.vidCount + '个视频后再提交');
+        return;
+      }
+    }
+    this.loading = true;
+
     this.getQuestion(true, 'next', this.lineId,
       this.question.modelSubjectId, this.question.subSort, result, this.question.last, this.question.subjectid
     , this.situDesc, uploadFile.value, uploadFileDel.value, uploadImage.value, uploadImageDel.value);

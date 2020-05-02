@@ -38,6 +38,9 @@ export class SitesComponent implements OnInit {
       console.log(res);
       if (res.code === 100) {
         this.siteList = res.distributorList;
+      } else {
+        this.authenticationService.logout();
+        window.location.reload();
       }
 
     }, error => {

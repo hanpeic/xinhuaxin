@@ -53,6 +53,9 @@ export class RoutesComponent implements OnInit {
       if (res.code === 100) {
         this.routeList = res.todaysLineList;
         this.otherRouteList = res.othersLineList;
+      } else {
+        this.authenticationService.logout();
+        window.location.reload();
       }
 
     }, error => {

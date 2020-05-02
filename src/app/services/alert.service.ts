@@ -37,6 +37,10 @@ export class AlertService {
     this.subject.next({ type: 'error', text: message });
   }
 
+  alert(message: string) {
+    this.subject.next({ type: 'alert', text: message });
+  }
+
   clear() {
     // clear by calling subject.next() without parameters
     this.subject.next();

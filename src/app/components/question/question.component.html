@@ -9,7 +9,7 @@
   <div class="container mt-4">
 
     <div *ngFor="let answer of question.resOptList" >
-      <mat-checkbox formControlName="{{answer.optSort.toString()}}" (change)="checkAnswer(answer.optSort.toString(), $event)" [disabled]="disableArray[answer.optSort.toString()]">{{answer.optDesc}}</mat-checkbox>
+      <mat-checkbox formControlName="{{answer.optSort.toString()}}" (change)="checkAnswer(answer.optSort.toString(), $event)" [disabled]="disableArray[answer.optSort.toString()] || !enableArrayFromServer[answer.optSort.toString()]">{{answer.optDesc}}</mat-checkbox>
     </div>
     <mat-form-field>
       <mat-label>备注</mat-label>
@@ -20,7 +20,9 @@
                 cdkAutosizeMaxRows="5"></textarea>
     </mat-form-field>
     <app-file [bizKey]="lineId + '-' + question.modelSubjectId" [picCount]="question.picCount"
-             [vidCount]="question.vidCount" *ngIf="question && showFile"></app-file>
+             [vidCount]="question.vidCount" [maxWidth]="question.picMaxwidth || 1024"
+              [maxHeight]="question.picMaxheight || 768"
+              *ngIf="question && showFile"></app-file>
     <div class="form-group mt-3">
       <button [disabled]="loading" class="btn btn-primary">
         <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>

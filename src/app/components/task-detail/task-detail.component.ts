@@ -27,6 +27,9 @@ export class TaskDetailComponent implements OnInit {
       console.log(res);
       if (res.code === 100) {
         this.task = res;
+      } else {
+        this.authenticationService.logout();
+        window.location.reload();
       }
 
     }, error => {

@@ -47,6 +47,9 @@ export class TasksComponent implements OnInit {
       console.log(res);
       if (res.code === 100) {
         this.taskList = res.taskUndone.concat(res.taskDoing);
+      } else {
+        this.authenticationService.logout();
+        window.location.reload();
       }
 
     }, error => {

@@ -1,5 +1,6 @@
 import VConsole from 'vconsole';
 import { Component, OnInit } from '@angular/core';
+import {StateService} from './services/state.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -7,7 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppComponent implements OnInit{
   title = '新华信明检系统';
+  constructor(public stateService: StateService) {
+  }
   ngOnInit() {
-    const vconsole = new VConsole();
+    this.stateService.apiEndpoint = document.querySelector('#apiEndpoint').getAttribute('value');
+    this.stateService.debugMode = document.querySelector('#debugMode').getAttribute('value') === 'true';
+    if (this.stateService.debugMode) {
+      const vconsole = new VConsole();
+    }
   }
 }

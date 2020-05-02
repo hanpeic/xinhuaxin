@@ -27,6 +27,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatInputModule} from '@angular/material/input';
 import { TaskDetailComponent } from './components/task-detail/task-detail.component';
 import { FileComponent } from './components/question/file/file.component';
+import { InfoComponent } from './components/alert/info/info.component';
+import { ImageComponent } from './components/onsite/image/image.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,7 +47,9 @@ import { FileComponent } from './components/question/file/file.component';
     MyinfoComponent,
     QuestionComponent,
     TaskDetailComponent,
-    FileComponent
+    FileComponent,
+    InfoComponent,
+    ImageComponent
   ],
   imports: [
     BrowserModule,
@@ -61,6 +65,9 @@ import { FileComponent } from './components/question/file/file.component';
     HttpClientModule
    ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    InfoComponent
+  ]
 })
 export class AppModule { }

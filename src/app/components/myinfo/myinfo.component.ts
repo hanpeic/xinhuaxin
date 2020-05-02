@@ -38,6 +38,9 @@ export class MyinfoComponent implements OnInit {
           phone: this.formBuilder.control( res.mobile ? res.mobile : '', Validators.required),
           address: this.formBuilder.control(res.nowAddr ? res.nowAddr : '', Validators.required)
         });
+      } else {
+        this.authenticationService.logout();
+        window.location.reload();
       }
 
     }, error => {

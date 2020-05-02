@@ -59,6 +59,9 @@ export class HomeComponent implements OnInit {
         this.storeDoneNum = res.storeDoneNum;
         this.storeUndoneNum = res.storeUndoneNum;
         this.taskList = res.taskUndone;
+      } else {
+        this.authenticationService.logout();
+        window.location.reload();
       }
 
     }, error => {

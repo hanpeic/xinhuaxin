@@ -16,27 +16,52 @@
       <a href='baidumap://map/navi?query={{route.address}}&src=andr.baidu.openAPIdemo' target='_blank'>苹果导航</a>
     </div>
   </div>
+  <div class="row">
+    <div class="col-6 item-title">当前状态:</div>
+    <div class="col-6">
+      {{route.statuscn}}
+    </div>
+  </div>
 </div>
 <div class="container mt-3 mb-3"  *ngIf="route">
-  <div class="row">
+  <app-image [bizKey]="lineId + '-signin'" [picCount]="1"
+             [maxWidth]="1024"
+            [maxHeight]="768"
+             [readonly]="!!route.signinDate"
+            ></app-image>
+  <div class="row"  *ngIf="!route.signinDate">
     <div class="col-12">
       <button type="button" class="btn btn-primary btn-lg btn-signin" (click)="beginSignin()">
-        <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>签到</button>
-      <button type="button" class="btn btn-primary btn-lg btn-signin" (click)="beginSignin2()">签到测试</button>
+        <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>开始签到
+      </button>
+    </div>
+  </div>
+  <div class="row" *ngIf="route.signinDate">
+    <div class="col-6 item-title">签到时间:</div>
+    <div class="col-6">
+      {{route.signinDate}}
     </div>
   </div>
   <div class="row mt-4">
     <div class="col-12">
-      <button type="button" class="btn btn-primary btn-lg btn-signin" (click)="beginTest()">填写问卷</button>
+      <button type="button" class="btn btn-primary btn-lg btn-signin" (click)="beginTest()">进入问卷</button>
     </div>
   </div>
-  <div class="row mt-4">
+  <div class="row mt-4" *ngIf="route.status === 3 && !route.signoutDate">
     <div class="col-12">
       <button type="button" class="btn btn-primary btn-lg btn-signin" (click)="beginSignout()">
-        <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>签出</button>
+        <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>签出
+      </button>
+    </div>
+  </div>
+  <div class="row mt-4" *ngIf="route.signoutDate">
+    <div class="col-6 item-title">签退时间:</div>
+    <div class="col-6">
+      {{route.signoutDate}}
     </div>
   </div>
 </div>
+
 <div class="snapshot" *ngIf="webcamImage">
   <h2>调研中</h2>
   <img [src]="webcamImage.imageAsDataUrl" width="100%"/>

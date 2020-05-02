@@ -60,12 +60,12 @@ export class LoginComponent implements OnInit {
             // this.router.navigate([this.returnUrl]);
             this.router.navigateByUrl(this.returnUrl);
           } else {
-            this.alertService.error(data.msg);
+            this.alertService.alert(data.msg);
           }
           this.loading = false;
         },
         error => {
-          this.alertService.error('登录失败，请重试');
+          this.alertService.alert('登录失败，请重试');
           this.loading = false;
         });
   }
