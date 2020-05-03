@@ -18,6 +18,8 @@ export class FileComponent implements OnInit, OnChanges {
   maxWidth: number;
   @Input()
   maxHeight: number;
+  @Input()
+  readonly: boolean;
   constructor() { }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -30,7 +32,7 @@ export class FileComponent implements OnInit, OnChanges {
       id: 'uploadFile',
       bizKey: this.bizKey, // '1253704565781671936-09442619fe0f497992df089eda3581fe',
       bizType: 'projLineSuvSub_file',
-      readonly: false,
+      readonly: this.readonly,
       returnPath: false,
       filePathInputId: '',
       fileNameInputId: '',
@@ -59,7 +61,7 @@ export class FileComponent implements OnInit, OnChanges {
       id: 'uploadImage',
       bizKey: this.bizKey,
       bizType: 'projLineSuvSub_image',
-      readonly: false,
+      readonly: this.readonly,
       returnPath: false,
       filePathInputId: '',
       fileNameInputId: '',

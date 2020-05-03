@@ -8,6 +8,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {AuthenticationService} from '../../services/authentication-service.service';
 import {Route} from '../../models/route';
 import {AlertService} from '../../services/alert.service';
+import {SubmitComponent} from './submit/submit.component';
 @Component({
   selector: 'app-onsite',
   templateUrl: './onsite.component.html',
@@ -21,6 +22,7 @@ export class OnsiteComponent implements OnInit {
   lineId: string;
   route: Route;
   loading = false;
+  operatingSystem: string;
 
   // webcam snapshot trigger
   // private trigger: Subject<void> = new Subject<void>();
@@ -31,10 +33,22 @@ export class OnsiteComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit(): void {
+    this.operatingSystem = this.getSystem();
     this.lineId = this.activatedRoute.snapshot.queryParamMap.get('lineId');
     if (this.lineId) {
       this.fetchLine(this.lineId);
     }
+  }
+
+  getSystem() {
+    const userAgent = window.navigator.userAgent;
+    if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+      return 'iOS';
+    }
+    if (/android/i.test(userAgent)) {
+      return 'Android';
+    }
+    return 'unknown';
   }
 
   /* beginSignin(): void {
@@ -162,5 +176,30 @@ export class OnsiteComponent implements OnInit {
   }
   gotoRoute() {
     this.router.navigate(['routes']);
+  }
+  submitLine() {
+    const modalRef = this.matDialog.open(SubmitComponent, {
+      minWidth: '250px'
+    });
+    modalRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.requestService.submitLine(this.lineId).subscribe(res => {
+          console.log(res);
+          if (res.code === 100) {
+            this.route = res;
+            this.alertService.alert('提交问卷成功！');
+            this.fetchLine(this.lineId);
+          } else {
+            this.alertService.alert('提交失败！请重试。错误信息：' + res.msg);
+          }
+
+        }, error => {
+          // this.alertService.error(error);
+          console.log(error);
+          this.authenticationService.logout();
+          window.location.reload();
+        });
+      }
+    });
   }
 }

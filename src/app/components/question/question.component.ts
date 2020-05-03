@@ -9,6 +9,7 @@ import { NgZone, ViewChild} from '@angular/core';
 import {take} from 'rxjs/operators';
 import {AlertService} from '../../services/alert.service';
 import {FileComponent} from './file/file.component';
+import {Route} from '../../models/route';
 
 @Component({
   selector: 'app-question',
@@ -25,6 +26,7 @@ export class QuestionComponent implements OnInit {
   ruleHash = {};
   situDesc = '';
   showFile = true;
+  route: Route;
   @ViewChild(FileComponent) childFile: FileComponent;
   constructor(private requestService: RequestService,
               private activatedRoute: ActivatedRoute,
@@ -42,8 +44,9 @@ export class QuestionComponent implements OnInit {
 
   ngOnInit(): void {
     this.lineId = this.activatedRoute.snapshot.queryParamMap.get('lineId');
-    this.getQuestion(false, 'next', this.lineId, null, -1,
-      null, null, null, null, null, null, null, null);
+    if (this.lineId) {
+      this.fetchLine(this.lineId);
+    }
   }
 
   buildFormGroup(question: Question) {
@@ -239,6 +242,14 @@ export class QuestionComponent implements OnInit {
     , this.situDesc, uploadFile.value, uploadFileDel.value, uploadImage.value, uploadImageDel.value);
   }
 
+  gotoNext() {
+    this.loading = true;
+    this.alertService.clear();
+    this.getQuestion(false, 'next', this.lineId,
+      this.question.modelSubjectId, this.question.subSort, null, this.question.last, this.question.subjectid
+      , null, null, null, null, null);
+  }
+
   gotoPrevious() {
     this.loading = true;
     this.alertService.clear();
@@ -249,5 +260,26 @@ export class QuestionComponent implements OnInit {
 
   gotoOnSite() {
     this.router.navigate(['onsite'], {queryParams: {lineId: this.lineId}});
+  }
+
+  fetchLine(lineId) {
+    this.requestService.retrieveLine(lineId).subscribe(res => {
+      console.log(res);
+      if (res.code === 100) {
+        this.route = res;
+        this.getQuestion(false, 'next', this.lineId, null, -1,
+          null, null, null, null, null, null, null, null);
+
+      } else {
+        this.authenticationService.logout();
+        window.location.reload();
+      }
+
+    }, error => {
+      // this.alertService.error(error);
+      console.log(error);
+      this.authenticationService.logout();
+      window.location.reload();
+    });
   }
 }

@@ -1,0 +1,11 @@
+<div><i class="mbsc-pull-right" (click)="close(false)">
+  <img src="assets/icons/close.svg" width="25" height="25">
+</i></div>
+<div mat-dialog-title class="justify-content-center title">信息</div>
+<div mat-dialog-content class="justify-content-center content-container">
+  是否确定提交问卷？提交后无法更改
+</div>
+<div mat-dialog-actions class="justify-content-center">
+  <button class="btn btn-primary mr-2" (click)="close(true)">确定</button>
+  <button class="btn btn-primary" (click)="close(false)">取消</button>
+</div>

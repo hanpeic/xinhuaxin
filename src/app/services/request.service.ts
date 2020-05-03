@@ -90,10 +90,10 @@ export class RequestService {
     let payload = new HttpParams().set('lineId', lineId)
       .set('longitude', long).set('latitude', lat);
     if (uploadImage) {
-      payload = payload.set('projLineSuvSub_image', uploadImage);
+      payload = payload.set('signin_image', uploadImage);
     }
     if (uploadImageDel) {
-      payload = payload.set('projLineSuvSub_image__del', uploadImageDel);
+      payload = payload.set('signin_image__del', uploadImageDel);
     }
     return this.http.post<any>(`${this.stateService.apiEndpoint}/signin`, payload, { withCredentials: true });
   }
@@ -102,5 +102,9 @@ export class RequestService {
     const payload = new HttpParams().set('lineId', lineId)
       .set('longitude', long).set('latitude', lat);
     return this.http.post<any>(`${this.stateService.apiEndpoint}/signout`, payload, { withCredentials: true });
+  }
+  submitLine(lineId): Observable<any> {
+    const payload = new HttpParams().set('lineId', lineId);
+    return this.http.post<any>(`${this.stateService.apiEndpoint}/submitLine`, payload, { withCredentials: true });
   }
 }

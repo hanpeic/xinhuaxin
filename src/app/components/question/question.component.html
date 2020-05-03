@@ -1,15 +1,17 @@
 <nav class="navbar navbar-light bg-primary text-white title-bar" *ngIf="question">
-  <a class="" (click)="gotoOnSite()">
+  <a class="" (click)="gotoOnSite()" style="position: absolute; left: 16px">
     <img src="assets/icons/left.svg" width="25" height="25" class="left-image" alt="">
   </a>
-  <span class="title">{{ question.title ? question.subSort + '.' + question.title : '恭喜，问卷完成！'}}</span>
+  <div class="title">{{ question.title ? question.subSort + '.' + question.title : '恭喜，问卷完成！'}}</div>
 </nav>
 
 <form [formGroup]="form" (ngSubmit)="onSubmit()" *ngIf="question && question.title">
   <div class="container mt-4">
-
-    <div *ngFor="let answer of question.resOptList" >
-      <mat-checkbox formControlName="{{answer.optSort.toString()}}" (change)="checkAnswer(answer.optSort.toString(), $event)" [disabled]="disableArray[answer.optSort.toString()] || !enableArrayFromServer[answer.optSort.toString()]">{{answer.optDesc}}</mat-checkbox>
+    <div class="row" *ngFor="let answer of question.resOptList" >
+      <div class="col-12">
+        <mat-checkbox formControlName="{{answer.optSort.toString()}}" (change)="checkAnswer(answer.optSort.toString(), $event)"
+                    [disabled]="disableArray[answer.optSort.toString()] || !enableArrayFromServer[answer.optSort.toString()] || route.status > 3">{{answer.optDesc}}</mat-checkbox>
+      </div>
     </div>
     <mat-form-field>
       <mat-label>备注</mat-label>
@@ -17,14 +19,15 @@
                 cdkTextareaAutosize
                 #autosize="cdkTextareaAutosize"
                 cdkAutosizeMinRows="1"
-                cdkAutosizeMaxRows="5"></textarea>
+                cdkAutosizeMaxRows="5" [disabled]="route.status > 3"></textarea>
     </mat-form-field>
     <app-file [bizKey]="lineId + '-' + question.modelSubjectId" [picCount]="question.picCount"
              [vidCount]="question.vidCount" [maxWidth]="question.picMaxwidth || 1024"
               [maxHeight]="question.picMaxheight || 768"
+              [readonly]="route.status > 3"
               *ngIf="question && showFile"></app-file>
     <div class="form-group mt-3">
-      <button [disabled]="loading" class="btn btn-primary">
+      <button [disabled]="loading" class="btn btn-primary" *ngIf="route.status <= 3">
         <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
         {{ question.showNextBtn ? '保存并跳转到下一题' : '保存并完成问卷'}}
       </button>
@@ -32,9 +35,13 @@
   </div>
 </form>
 <div class="container">
-  <button class="btn btn-primary" [disabled]="loading" *ngIf="question && question.showPreviousBtn" (click)="gotoPrevious()">
+  <button class="btn btn-primary mr-2" [disabled]="loading" *ngIf="question && question.showPreviousBtn" (click)="gotoPrevious()">
     <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
     前一题
+  </button>
+  <button class="btn btn-primary" [disabled]="loading" *ngIf="question && question.showNextBtn && route.status > 3" (click)="gotoNext()">
+    <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+    下一题
   </button>
 </div>
 <div class="container mt-5">

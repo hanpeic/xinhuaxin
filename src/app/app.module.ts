@@ -29,6 +29,7 @@ import { TaskDetailComponent } from './components/task-detail/task-detail.compon
 import { FileComponent } from './components/question/file/file.component';
 import { InfoComponent } from './components/alert/info/info.component';
 import { ImageComponent } from './components/onsite/image/image.component';
+import { SubmitComponent } from './components/onsite/submit/submit.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -49,7 +50,8 @@ import { ImageComponent } from './components/onsite/image/image.component';
     TaskDetailComponent,
     FileComponent,
     InfoComponent,
-    ImageComponent
+    ImageComponent,
+    SubmitComponent
   ],
   imports: [
     BrowserModule,
@@ -67,7 +69,8 @@ import { ImageComponent } from './components/onsite/image/image.component';
   providers: [],
   bootstrap: [AppComponent],
   entryComponents: [
-    InfoComponent
+    InfoComponent,
+    SubmitComponent
   ]
 })
 export class AppModule { }

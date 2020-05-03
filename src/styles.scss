@@ -21,3 +21,12 @@ body,button, input, select, textarea,h1 ,h2, h3, h4, h5, h6 { font-family: Micro
 .cdk-overlay-container {
   z-index: 29999098;
 }
+.mat-checkbox-layout {
+  white-space: pre-line !important;
+}
+.container {
+  @media (min-width: 576px) {
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+}

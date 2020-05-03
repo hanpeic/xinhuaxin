@@ -11,9 +11,9 @@
   <div class="row">
     <div class="col-8">{{route.address}}</div>
     <div class="col-4">
-      <a href='http://api.map.baidu.com/geocoder?address={{route.address}}&output=html' target='_blank' style="margin-right: 3px;">导航</a>
-      <a href='bdapp://map/navi?query={{route.address}}&src=andr.baidu.openAPIdemo' target='_blank' style="margin-right: 3px;">安卓导航</a>
-      <a href='baidumap://map/navi?query={{route.address}}&src=andr.baidu.openAPIdemo' target='_blank'>苹果导航</a>
+      <a *ngIf="operatingSystem === 'unknown'" href='http://api.map.baidu.com/geocoder?address={{route.address}}&output=html' target='_blank' style="margin-right: 3px;">导航</a>
+      <a *ngIf="operatingSystem === 'Android'" href='bdapp://map/navi?query={{route.address}}&src=andr.baidu.openAPIdemo' target='_blank' style="margin-right: 3px;">导航</a>
+      <a *ngIf="operatingSystem === 'iOS'" href='baidumap://map/navi?query={{route.address}}&src=andr.baidu.openAPIdemo' target='_blank'>导航</a>
     </div>
   </div>
   <div class="row">
@@ -46,8 +46,11 @@
     <div class="col-12">
       <button type="button" class="btn btn-primary btn-lg btn-signin" (click)="beginTest()">进入问卷</button>
     </div>
+    <div class="col-12 mt-3" *ngIf="route.status === 3">
+      <button type="button" class="btn btn-primary btn-lg btn-signin" (click)="submitLine()">提交问卷</button>
+    </div>
   </div>
-  <div class="row mt-4" *ngIf="route.status === 3 && !route.signoutDate">
+  <div class="row mt-4" *ngIf="route.status >= 3 && !route.signoutDate">
     <div class="col-12">
       <button type="button" class="btn btn-primary btn-lg btn-signin" (click)="beginSignout()">
         <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>签出
