@@ -31,11 +31,11 @@
             ],
             "scripts": [
               "./src/assets/jquery-3.2.1.min.js",
+              "./src/assets/webuploader/0.1/layer.js",
               "./src/assets/webuploader/0.1/webuploader.js",
               "./src/assets/webuploader/0.1/webuploader.extend.js",
               "./src/assets/webuploader/0.1/jeesite.js",
               "./src/assets/webuploader/0.1/jeesite_zh_CN.js"
-
             ]
           },
           "configurations": {
