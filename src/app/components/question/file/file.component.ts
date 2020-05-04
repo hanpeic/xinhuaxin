@@ -36,7 +36,7 @@ export class FileComponent implements OnInit, OnChanges {
       returnPath: false,
       filePathInputId: '',
       fileNameInputId: '',
-      uploadType: 'all',
+      uploadType: 'media',
       maxFileSize: 500*1024*1024,
       imageAllowSuffixes: '.gif,.bmp,.jpeg,.jpg,.ico,.png,.tif,.tiff,',
       mediaAllowSuffixes: '.flv,.swf,.mkv,webm,.mid,.mov,.mp3,.mp4,.m4v,.mpc,.mpeg,.mpg,.swf,.wav,.wma,.wmv,.avi,.rm,.rmi,.rmvb,.aiff,.asf,.ogg,.ogv,',
