@@ -629,7 +629,7 @@
             if (q) {
               T.find(".file-panel .cancel").attr("fileUploadId", U.id).attr("fileUrl", V).attr("fileName", U.fileName).attr("fileSize", U.fileEntity.fileSize)
             } else {
-              T.find(".btncancel").empty().append('<a class="btn btn-danger btn-xs delete" fileUploadId="' + U.id + '" fileUrl="' + V + '" fileName="' + U.fileName + '" fileSize="' + U.fileEntity.fileSize + '"><i class="fa fa-trash-o"></i> ' + t("删除") + '</a> &nbsp;<a class="btn btn-info btn-xs" target="_blank" href="' + N + '" ><i class="fa fa-download"></i> ' + t("下载") + "</a>")
+              T.find(".btncancel").empty().append('<a class="btn btn-danger btn-xs delete" fileUploadId="' + U.id + '" fileUrl="' + V + '" fileName="' + U.fileName + '" fileSize="' + U.fileEntity.fileSize + '"><i class="fa fa-trash-o"></i> ' + t("删除") + "</a>")
             }
             D(U.id, V, U.fileName)
           } else {
@@ -744,7 +744,7 @@
             b('<div id="outerdiv" style="position:fixed;top:0;left:0;background:rgba(0,0,0,0.7);z-index:99999;width:100%;height:100%;display:none;"><div id="innerdiv" style="position:fixed;"><img id="bigimg" style="border:2px solid #fff;" src="" /></div></div>').appendTo(document.body)
           }
           b(M).attr("src", P);
-          b("<img/>").attr("src", P).load(function() {
+          b("<img/>").attr("src", P).on('load', function() {
             var R = b(window).width();
             var V = b(window).height();
             var Y = this.width;
@@ -794,7 +794,7 @@
               , M = (js.startWith(O.fileUrl, ctxPath) || js.startWith(O.fileUrl, "http://") || js.startWith(O.fileUrl, "https://") ? "" : ctxPath) + O.fileUrl
               , R = (s.returnPath ? M : s.service.download + O.id);
             if (q) {
-              $li = b('<li id="' + O.id + '"><p class="title"><a target="_blank" href="' + R + '">' + O.fileName + '</a></p><p class="imgWrap"><img src="' + M + '"/></p><p class="progress"><span></span></p><div class="file-panel"><span class="cancel ' + (!s.readonly ? "" : "hide") + '" fileUploadId="' + O.id + '" fileUrl="' + M + '" fileName="' + O.fileName + '" fileSize="' + O.fileEntity.fileSize + '">' + t("删除") + "</span></div>" + (O.message ? O.message : "") + "</li>");
+              $li = b('<li id="' + O.id + '"><p class="title">' + O.fileName + '</p><p class="imgWrap"><img src="' + M + '"/></p><p class="progress"><span></span></p><div class="file-panel"><span class="cancel ' + (!s.readonly ? "" : "hide") + '" fileUploadId="' + O.id + '" fileUrl="' + M + '" fileName="' + O.fileName + '" fileSize="' + O.fileEntity.fileSize + '">' + t("删除") + "</span></div>" + (O.message ? O.message : "") + "</li>");
               $li.on("mouseenter", function() {
                 var S = b(this).index();
                 C.find(".file-panel").eq(S).stop().animate({
@@ -859,7 +859,7 @@
                 b(this).parent().data("fileRotation", T)
               })
             } else {
-              $li = b('<tr id="' + O.id + '" class="template-upload"><td class="name"><i class="fa fa-file-text-o"></i>' + O.fileName + '</td><td class="size">' + (s.returnPath ? "" : WebUploader.formatSize(O.fileEntity.fileSize)) + '</td><td class="prog_bar">' + (O.progress ? O.progress : (O.createByName ? O.createByName : "")) + '</td><td class="msg">' + (O.message ? O.message : (O.createDate ? O.createDate : "")) + '</td><td class="btncancel">' + (s.preview != "" ? '<a class="btn btn-default btn-xs preview" herf="javascript:void(0);" previewUrl="' + M + "?fileName=" + O.fileName + "&preview=" + s.preview + '"><i class="fa fa-eye"></i> ' + t("预览") + "</a> &nbsp;" : "") + '<a class="btn btn-danger btn-xs delete' + (!s.readonly ? "" : " hide") + '" fileUploadId="' + O.id + '" fileUrl="' + M + '" fileName="' + O.fileName + '" fileSize="' + O.fileEntity.fileSize + '"><i class="fa fa-trash-o"></i> ' + t("删除") + " </a>" + (!s.readonly ? " &nbsp;" : "") + '<a class="btn btn-info btn-xs blue" target="_blank" href="' + R + '"><i class="fa fa-download"></i> ' + t("下载") + " </a></td></tr>");
+              $li = b('<tr id="' + O.id + '" class="template-upload"><td class="name"><i class="fa fa-file-text-o"></i>' + O.fileName + '</td><td class="size">' + (s.returnPath ? "" : WebUploader.formatSize(O.fileEntity.fileSize)) + '</td><td class="prog_bar">' + (O.progress ? O.progress : (O.createByName ? O.createByName : "")) + '</td><td class="msg">' + (O.message ? O.message : (O.createDate ? O.createDate : "")) + '</td><td class="btncancel">' + (s.preview != "" ? '<a class="btn btn-default btn-xs preview" herf="javascript:void(0);" previewUrl="' + M + "?fileName=" + O.fileName + "&preview=" + s.preview + '"><i class="fa fa-eye"></i> ' + t("预览") + "</a> &nbsp;" : "") + '<a class="btn btn-danger btn-xs delete' + (!s.readonly ? "" : " hide") + '" fileUploadId="' + O.id + '" fileUrl="' + M + '" fileName="' + O.fileName + '" fileSize="' + O.fileEntity.fileSize + '"><i class="fa fa-trash-o"></i> ' + t("删除") + " </a></td></tr>");
               $li.on("click", "a.preview", function() {
                 js.windowOpen(b(this).attr("previewUrl"))
               });

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {Subject, Observable} from 'rxjs';
 import {WebcamImage, WebcamInitError, WebcamUtil} from 'ngx-webcam';
 import {MatDialog} from '@angular/material/dialog';
@@ -9,6 +9,7 @@ import {AuthenticationService} from '../../services/authentication-service.servi
 import {Route} from '../../models/route';
 import {AlertService} from '../../services/alert.service';
 import {SubmitComponent} from './submit/submit.component';
+// declare const $: any;
 @Component({
   selector: 'app-onsite',
   templateUrl: './onsite.component.html',
@@ -29,6 +30,7 @@ export class OnsiteComponent implements OnInit {
   constructor(private matDialog: MatDialog, private requestService: RequestService,
               private activatedRoute: ActivatedRoute,
               private authenticationService: AuthenticationService,
+              private changeDetector: ChangeDetectorRef,
               private alertService: AlertService,
               private router: Router) { }
 
@@ -80,6 +82,10 @@ export class OnsiteComponent implements OnInit {
           this.loading = false;
           if (res.code === 100) {
             this.alertService.alert('签到成功！');
+            const elements = document.getElementsByClassName('file-panel');
+            while (elements.length > 0){
+              elements[0].parentNode.removeChild(elements[0]);
+            }
             this.fetchLine(this.lineId);
           } else {
             this.alertService.alert('签到失败！请重试。错误信息：' + res.msg);
