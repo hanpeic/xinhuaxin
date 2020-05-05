@@ -1,12 +1,12 @@
 {
   "/ycmj/api/phone/*": {
-    "target": "http://180.158.5.40:8089",
+    "target": "https://bluebit.com.cn/",
     "secure": false,
     "changeOrigin": true,
     "logLevel": "debug"
   },
   "/ycmj/*": {
-    "target": "http://180.158.5.40:8089",
+    "target": "https://bluebit.com.cn/",
     "secure": false,
     "changeOrigin": true,
     "logLevel": "debug"
