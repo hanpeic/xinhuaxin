@@ -7,14 +7,14 @@ const app = express();
 // Serve only the static files form the dist directory
 app.use(express.static(__dirname + '/dist/xinhuaxin'));
 
-app.use('/', proxy('http://180.158.5.40:8089', {
+app.use('/', proxy('https://bluebit.com.cn/', {
   limit: '50mb',
   filter: function(req, res) {
     return req.method == 'POST';
   }
 }));
 
-app.use('/ycmj', proxy('http://180.158.5.40:8089/', {
+app.use('/ycmj', proxy('https://bluebit.com.cn/', {
   limit: '50mb',
   proxyReqPathResolver: function (req) {
    return '/ycmj' + req.url;
