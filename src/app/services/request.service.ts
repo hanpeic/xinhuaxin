@@ -62,6 +62,34 @@ export class RequestService {
     }
     return this.http.post<any>(`${this.stateService.apiEndpoint}/getNextSubject`, payload, { withCredentials: true });
   }
+  saveSubject(lineId, subjectId, modelSubjectId, optResult, situDesc, uploadFile, uploadFileDel, uploadImage, uploadImageDel) {
+    let payload = new HttpParams().set('lineId', lineId);
+    if (modelSubjectId) {
+      payload = payload.set('modelSubjectId', modelSubjectId);
+    }
+    if (optResult) {
+      payload = payload.set('optResult', optResult);
+    }
+    if (subjectId) {
+      payload = payload.set('subjectId', subjectId);
+    }
+    if (situDesc) {
+      payload = payload.set('situDesc', situDesc);
+    }
+    if (uploadFile) {
+      payload = payload.set('projLineSuvSub_file', uploadFile);
+    }
+    if (uploadFileDel) {
+      payload = payload.set('projLineSuvSub_file__del', uploadFileDel);
+    }
+    if (uploadImage) {
+      payload = payload.set('projLineSuvSub_image', uploadImage);
+    }
+    if (uploadImageDel) {
+      payload = payload.set('projLineSuvSub_image__del', uploadImageDel);
+    }
+    return this.http.post<any>(`${this.stateService.apiEndpoint}/saveSubject`, payload, { withCredentials: true });
+  }
 
   retrieveDistributorList(taskId): Observable<any> {
     const payload = new HttpParams().set('taskId', taskId);
@@ -106,5 +134,25 @@ export class RequestService {
   submitLine(lineId): Observable<any> {
     const payload = new HttpParams().set('lineId', lineId);
     return this.http.post<any>(`${this.stateService.apiEndpoint}/submitLine`, payload, { withCredentials: true });
+  }
+  getModuleList(projId, lineId) {
+    const payload = new HttpParams().set('lineId', lineId)
+      .set('projId', projId);
+    return this.http.post<any>(`${this.stateService.apiEndpoint}/getModuleList`, payload, { withCredentials: true });
+  }
+  getTitleList(projId, lineId, moduleCode) {
+    const payload = new HttpParams().set('lineId', lineId)
+      .set('projId', projId).set('moduleCode', moduleCode);
+    return this.http.post<any>(`${this.stateService.apiEndpoint}/getTitleList`, payload, { withCredentials: true });
+  }
+  getSubject(projId, lineId, moduleCode, titleCode) {
+    const payload = new HttpParams().set('lineId', lineId)
+      .set('projId', projId).set('moduleCode', moduleCode).set('titleCode', titleCode);
+    return this.http.post<any>(`${this.stateService.apiEndpoint}/getSubject`, payload, { withCredentials: true });
+  }
+  changePwd(oldPassword, newPassword) {
+    const payload = new HttpParams().set('oldPassword', oldPassword)
+      .set('newPassword', newPassword);
+    return this.http.post<any>(`${this.stateService.apiEndpoint}/changepwd`, payload, { withCredentials: true });
   }
 }

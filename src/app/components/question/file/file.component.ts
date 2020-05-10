@@ -1,4 +1,13 @@
-import {Component, OnInit, ViewEncapsulation, ElementRef, Input, OnChanges, SimpleChanges} from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewEncapsulation,
+  ElementRef,
+  Input,
+  OnChanges,
+  SimpleChanges,
+  OnDestroy
+} from '@angular/core';
 declare const $: any;
 
 @Component({
@@ -6,7 +15,7 @@ declare const $: any;
   templateUrl: './file.component.html',
   styleUrls: ['./file.component.scss']
 })
-export class FileComponent implements OnInit, OnChanges {
+export class FileComponent implements OnInit, OnChanges, OnDestroy {
 
   @Input()
   bizKey: string;
@@ -85,5 +94,9 @@ export class FileComponent implements OnInit, OnChanges {
       isLazy: false,
       preview: ''
     });
+  }
+  ngOnDestroy(): void {
+    const elements = document.querySelectorAll('div[id^="rt_rt_"]');
+    for (let i = 0; i < elements.length; i ++ ) { elements[i].parentNode.removeChild(elements[i]); }
   }
 }

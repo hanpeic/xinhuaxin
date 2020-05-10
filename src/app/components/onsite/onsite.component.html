@@ -43,9 +43,14 @@
     </div>
   </div>
   <div class="row mt-4">
-    <div class="col-12">
-      <button type="button" class="btn btn-primary btn-lg btn-signin" (click)="beginTest()">进入问卷</button>
+    <div class="col-6">
+      <button type="button" class="btn btn-primary btn-lg btn-signin" (click)="beginTest()">顺序答题</button>
     </div>
+    <div class="col-6" *ngIf="route.status <= 3">
+      <button type="button" class="btn btn-primary btn-lg btn-signin" (click)="beginTestOne()">选题答题</button>
+    </div>
+  </div>
+  <div class="row">
     <div class="col-12 mt-3" *ngIf="route.status === 3">
       <button type="button" class="btn btn-primary btn-lg btn-signin" (click)="submitLine()">提交问卷</button>
     </div>

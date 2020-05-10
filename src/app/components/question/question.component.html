@@ -29,7 +29,7 @@
     <div class="form-group mt-3">
       <button [disabled]="loading" class="btn btn-primary" *ngIf="route.status <= 3">
         <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-        {{ question.showNextBtn ? '保存并跳转到下一题' : '保存并完成问卷'}}
+        {{ question.showNextBtn ? '保存并跳转到下一题' : (titleCode && moduleCode ? '提交本题' : '保存并完成问卷')}}
       </button>
     </div>
   </div>

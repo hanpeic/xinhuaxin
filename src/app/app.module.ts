@@ -25,11 +25,14 @@ import { MyinfoComponent } from './components/myinfo/myinfo.component';
 import { QuestionComponent } from './components/question/question.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatInputModule} from '@angular/material/input';
+import {MatSelectModule} from '@angular/material/select';
 import { TaskDetailComponent } from './components/task-detail/task-detail.component';
 import { FileComponent } from './components/question/file/file.component';
 import { InfoComponent } from './components/alert/info/info.component';
 import { ImageComponent } from './components/onsite/image/image.component';
 import { SubmitComponent } from './components/onsite/submit/submit.component';
+import { ChooseQuestionComponent } from './components/choose-question/choose-question.component';
+import { PasswordComponent } from './components/myinfo/password/password.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -51,7 +54,9 @@ import { SubmitComponent } from './components/onsite/submit/submit.component';
     FileComponent,
     InfoComponent,
     ImageComponent,
-    SubmitComponent
+    SubmitComponent,
+    ChooseQuestionComponent,
+    PasswordComponent
   ],
   imports: [
     BrowserModule,
@@ -61,6 +66,7 @@ import { SubmitComponent } from './components/onsite/submit/submit.component';
     WebcamModule,
     MatDialogModule,
     MatCheckboxModule,
+    MatSelectModule,
     MatInputModule,
     FormsModule,
     ReactiveFormsModule,
@@ -70,7 +76,8 @@ import { SubmitComponent } from './components/onsite/submit/submit.component';
   bootstrap: [AppComponent],
   entryComponents: [
     InfoComponent,
-    SubmitComponent
+    SubmitComponent,
+    PasswordComponent
   ]
 })
 export class AppModule { }

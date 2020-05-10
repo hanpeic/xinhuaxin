@@ -41,7 +41,6 @@ export class OnsiteComponent implements OnInit {
       this.fetchLine(this.lineId);
     }
   }
-
   getSystem() {
     const userAgent = window.navigator.userAgent;
     if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
@@ -161,6 +160,10 @@ export class OnsiteComponent implements OnInit {
   }
   beginTest() {
     this.router.navigate(['question'], {queryParams: {lineId: this.lineId}});
+  }
+
+  beginTestOne() {
+    this.router.navigate(['choose-question'], {queryParams: {lineId: this.lineId}});
   }
 
   fetchLine(lineId) {

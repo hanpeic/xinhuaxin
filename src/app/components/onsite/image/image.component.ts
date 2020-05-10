@@ -1,11 +1,11 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 declare const $: any;
 @Component({
   selector: 'app-image',
   templateUrl: './image.component.html',
   styleUrls: ['./image.component.scss']
 })
-export class ImageComponent implements OnInit {
+export class ImageComponent implements OnInit, OnDestroy {
   @Input()
   bizKey: string;
   @Input()
@@ -47,5 +47,10 @@ export class ImageComponent implements OnInit {
       isLazy: false,
       preview: ''
     });
+  }
+
+  ngOnDestroy(): void {
+    const elements = document.querySelectorAll('div[id^="rt_rt_"]');
+    for (let i = 0; i < elements.length; i ++ ) { elements[i].parentNode.removeChild(elements[i]); }
   }
 }

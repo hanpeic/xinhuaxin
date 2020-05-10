@@ -10,6 +10,7 @@ import { AuthGuard } from './services/auth.guard';
 import {MyinfoComponent} from './components/myinfo/myinfo.component';
 import {QuestionComponent} from './components/question/question.component';
 import {TaskDetailComponent} from './components/task-detail/task-detail.component';
+import {ChooseQuestionComponent} from './components/choose-question/choose-question.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home', canActivate: [AuthGuard] },
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'sites', component: SitesComponent, canActivate: [AuthGuard] },
   { path: 'routes', component: RoutesComponent, canActivate: [AuthGuard] },
   { path: 'onsite', component: OnsiteComponent, canActivate: [AuthGuard] },
+  { path: 'choose-question', component: ChooseQuestionComponent, canActivate: [AuthGuard] },
   { path: 'myinfo', component: MyinfoComponent, canActivate: [AuthGuard] },
   { path: 'question', component: QuestionComponent, canActivate: [AuthGuard] },
   { path: 'task-detail', component: TaskDetailComponent, canActivate: [AuthGuard] },

@@ -27,6 +27,9 @@ export class QuestionComponent implements OnInit {
   situDesc = '';
   showFile = true;
   route: Route;
+  // new parameters for get one question mode
+  moduleCode: string;
+  titleCode: string;
   @ViewChild(FileComponent) childFile: FileComponent;
   constructor(private requestService: RequestService,
               private activatedRoute: ActivatedRoute,
@@ -44,6 +47,8 @@ export class QuestionComponent implements OnInit {
 
   ngOnInit(): void {
     this.lineId = this.activatedRoute.snapshot.queryParamMap.get('lineId');
+    this.moduleCode = this.activatedRoute.snapshot.queryParamMap.get('moduleCode');
+    this.titleCode = this.activatedRoute.snapshot.queryParamMap.get('titleCode');
     if (this.lineId) {
       this.fetchLine(this.lineId);
     }
@@ -154,6 +159,28 @@ export class QuestionComponent implements OnInit {
       this.updateEnable(key);
     }
   }
+  saveQuestion(lineId, subjectId, modelSubjectId, optResult, situDesc, uploadFile, uploadFileDel, uploadImage, uploadImageDel) {
+    this.requestService.saveSubject(lineId, subjectId, modelSubjectId, optResult, situDesc, uploadFile,
+      uploadFileDel, uploadImage, uploadImageDel).subscribe(res => {
+      console.log(res);
+      if (res.code === 100) {
+        this.alertService.alert('提交成功! 返回选题页面');
+        this.router.navigate(['choose-question'], {queryParams: {lineId: this.lineId}});
+      } else {
+        this.alertService.alert('提交失败，请重试!');
+        this.authenticationService.logout();
+        window.location.reload();
+      }
+      this.loading = false;
+
+    }, error => {
+      // this.alertService.error(error);
+      console.log(error);
+      this.loading = false;
+      this.authenticationService.logout();
+      window.location.reload();
+    });
+  }
   getQuestion(isSave, direction, lineId, modelSubjectId, subSort, optResult, isLast,
               subjectId, situDesc, uploadFile, uploadFileDel, uploadImage, uploadImageDel) {
     this.requestService.getQuestion(isSave, direction, lineId, modelSubjectId,
@@ -236,10 +263,14 @@ export class QuestionComponent implements OnInit {
       }
     }
     this.loading = true;
-
-    this.getQuestion(true, 'next', this.lineId,
-      this.question.modelSubjectId, this.question.subSort, result, this.question.last, this.question.subjectid
-    , this.situDesc, uploadFile.value, uploadFileDel.value, uploadImage.value, uploadImageDel.value);
+    if (this.titleCode && this.moduleCode) {
+      this.saveQuestion(this.lineId, this.question.subjectid, this.question.modelSubjectId, result, this.situDesc,
+        uploadFile.value, uploadFileDel.value, uploadImage.value, uploadImageDel.value);
+    } else {
+      this.getQuestion(true, 'next', this.lineId,
+        this.question.modelSubjectId, this.question.subSort, result, this.question.last, this.question.subjectid
+        , this.situDesc, uploadFile.value, uploadFileDel.value, uploadImage.value, uploadImageDel.value);
+    }
   }
 
   gotoNext() {
@@ -259,7 +290,11 @@ export class QuestionComponent implements OnInit {
   }
 
   gotoOnSite() {
-    this.router.navigate(['onsite'], {queryParams: {lineId: this.lineId}});
+    if (this.titleCode && this.moduleCode) {
+      this.router.navigate(['choose-question'], {queryParams: {lineId: this.lineId}});
+    } else {
+      this.router.navigate(['onsite'], {queryParams: {lineId: this.lineId}});
+    }
   }
 
   fetchLine(lineId) {
@@ -267,9 +302,13 @@ export class QuestionComponent implements OnInit {
       console.log(res);
       if (res.code === 100) {
         this.route = res;
-        this.getQuestion(false, 'next', this.lineId, null, -1,
-          null, null, null, null, null, null, null, null);
-
+        if (this.titleCode && this.moduleCode) {
+          this.getOneQuestion(this.lineId, this.route.projId, this.moduleCode, this.titleCode);
+        }
+        else {
+          this.getQuestion(false, 'next', this.lineId, null, -1,
+            null, null, null, null, null, null, null, null);
+        }
       } else {
         this.authenticationService.logout();
         window.location.reload();
@@ -278,6 +317,45 @@ export class QuestionComponent implements OnInit {
     }, error => {
       // this.alertService.error(error);
       console.log(error);
+      this.authenticationService.logout();
+      window.location.reload();
+    });
+  }
+
+  getOneQuestion(lineId, projId, moduleCode, titleCode) {
+    this.requestService.getSubject(projId, lineId, moduleCode, titleCode).subscribe(res => {
+      console.log(res);
+      if (res.code === 100) {
+        this.showFile = false;
+        this.changeDetector.detectChanges();
+        this.question = res;
+        this.showFile = true;
+        this.form = this.buildFormGroup(this.question);
+        if (this.question.optRelaFa) {
+          this.buildRule(this.question.optRelaFa);
+        } else {
+          this.ruleHash = {};
+        }
+        if (this.question.optResult) {
+          this.updateAnswer(this.question.optResult);
+          this.updateDisable();
+        }
+        if (this.question.situDesc) {
+          this.situDesc = this.question.situDesc;
+        } else {
+          this.situDesc = '';
+        }
+        // this.childFile.ngOnInit();
+      } else {
+        this.authenticationService.logout();
+        window.location.reload();
+      }
+      this.loading = false;
+
+    }, error => {
+      // this.alertService.error(error);
+      console.log(error);
+      this.loading = false;
       this.authenticationService.logout();
       window.location.reload();
     });

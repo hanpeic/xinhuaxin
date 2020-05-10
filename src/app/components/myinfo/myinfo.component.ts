@@ -4,7 +4,8 @@ import {AlertService} from '../../services/alert.service';
 import {AuthenticationService} from '../../services/authentication-service.service';
 import {RequestService} from '../../services/request.service';
 import {Router} from '@angular/router';
-import {User} from "../../models/user";
+import {MatDialog} from '@angular/material/dialog';
+import {PasswordComponent} from './password/password.component';
 
 @Component({
   selector: 'app-myinfo',
@@ -21,6 +22,7 @@ export class MyinfoComponent implements OnInit {
               private authenticationService: AuthenticationService,
               private router: Router,
               private alertService: AlertService,
+              private matDialog: MatDialog,
               private requestService: RequestService) { }
 
   ngOnInit(): void {
@@ -84,5 +86,11 @@ export class MyinfoComponent implements OnInit {
           this.authenticationService.logout();
           window.location.reload();
         });
+  }
+
+  updatePassword() {
+    const modalRef = this.matDialog.open(PasswordComponent, {
+      minWidth: '250px'
+    });
   }
 }
