@@ -347,8 +347,8 @@ export class QuestionComponent implements OnInit {
         }
         // this.childFile.ngOnInit();
       } else {
-        this.authenticationService.logout();
-        window.location.reload();
+        this.alertService.alert(res.msg);
+        this.router.navigate(['choose-question'], {queryParams: {lineId: this.lineId}});
       }
       this.loading = false;
 
