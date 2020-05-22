@@ -25,4 +25,6 @@ export class Question {
   vidCount: number;
   picMaxwidth: number;
   picMaxheight: number;
+  picName: string;
+  vidName: string;
 }

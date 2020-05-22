@@ -29,6 +29,10 @@ export class FileComponent implements OnInit, OnChanges, OnDestroy {
   maxHeight: number;
   @Input()
   readonly: boolean;
+  @Input()
+  vidName: string;
+  @Input()
+  picName: string;
   constructor() { }
 
   ngOnChanges(changes: SimpleChanges): void {

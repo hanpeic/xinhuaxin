@@ -25,6 +25,7 @@
              [vidCount]="question.vidCount" [maxWidth]="question.picMaxwidth || 1024"
               [maxHeight]="question.picMaxheight || 768"
               [readonly]="route.status > 3"
+              [picName]="question.picName" [vidName]="question.vidName"
               *ngIf="question && showFile"></app-file>
     <div class="form-group mt-3">
       <button [disabled]="loading" class="btn btn-primary" *ngIf="route.status <= 3">
