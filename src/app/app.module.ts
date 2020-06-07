@@ -33,6 +33,7 @@ import { ImageComponent } from './components/onsite/image/image.component';
 import { SubmitComponent } from './components/onsite/submit/submit.component';
 import { ChooseQuestionComponent } from './components/choose-question/choose-question.component';
 import { PasswordComponent } from './components/myinfo/password/password.component';
+import { PhotoComponent } from './components/question/photo/photo.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -56,7 +57,8 @@ import { PasswordComponent } from './components/myinfo/password/password.compone
     ImageComponent,
     SubmitComponent,
     ChooseQuestionComponent,
-    PasswordComponent
+    PasswordComponent,
+    PhotoComponent
   ],
   imports: [
     BrowserModule,

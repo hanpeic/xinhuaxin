@@ -238,7 +238,7 @@ export class QuestionComponent implements OnInit {
       this.alertService.alert('请至少选择一项!');
       return;
     }
-    if (this.form.get('89').value) {
+    if (this.form.get('89') && this.form.get('89').value) {
       if (this.situDesc.length === 0) {
         this.alertService.alert('选择89请必须在备注添加内容');
         return;

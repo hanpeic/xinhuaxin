@@ -44,10 +44,10 @@
   </div>
   <div class="row mt-4">
     <div class="col-6">
-      <button type="button" class="btn btn-primary btn-lg btn-signin" (click)="beginTest()">顺序答题</button>
+      <button type="button" class="btn btn-primary btn-lg btn-signin" [disabled]="!route.signinDate" (click)="beginTest()">顺序答题</button>
     </div>
     <div class="col-6" *ngIf="route.status <= 3">
-      <button type="button" class="btn btn-primary btn-lg btn-signin" (click)="beginTestOne()">选题答题</button>
+      <button type="button" class="btn btn-primary btn-lg btn-signin" [disabled]="!route.signinDate" (click)="beginTestOne()">选题答题</button>
     </div>
   </div>
   <div class="row">
