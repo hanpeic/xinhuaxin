@@ -24,6 +24,11 @@
   </div>
 </div>
 <div class="container mt-3 mb-3"  *ngIf="route">
+  <app-demo [bizKey]="lineId"
+             [maxWidth]="1024"
+             [maxHeight]="768"
+             [readonly]="true"
+             *ngIf="route && route.isDemoPic"></app-demo>
   <app-image [bizKey]="lineId + '-signin'" [picCount]="1"
              [maxWidth]="1024"
             [maxHeight]="768"
@@ -32,7 +37,7 @@
   <div class="row"  *ngIf="!route.signinDate">
     <div class="col-12">
       <button type="button" class="btn btn-primary btn-lg btn-signin" (click)="beginSignin()">
-        <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>开始签到
+        <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>启动
       </button>
     </div>
   </div>
@@ -58,7 +63,7 @@
   <div class="row mt-4" *ngIf="route.status >= 3 && !route.signoutDate">
     <div class="col-12">
       <button type="button" class="btn btn-primary btn-lg btn-signin" (click)="beginSignout()">
-        <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>签出
+        <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>结束
       </button>
     </div>
   </div>

@@ -9,8 +9,8 @@
     <div class="col-5">项目经理： {{task.pmName}}</div>
     <div class="col-7">联系方式： {{task.pmPhone}}</div>
   </div>
-  <div class="row task-id black mt-2">时间: {{task.taskBegDate}} - {{task.taskEndDate}}</div>
-  <div class="row no-gutters black mt-3 mb-2" style="margin-left: -5px; margin-right: 10px;">
+  <div class="row task-id black mt-2 mb-2">时间: {{task.taskBegDate}} - {{task.taskEndDate}}</div>
+  <div class="row no-gutters black mt-2 mb-2" style="margin-left: -5px; margin-right: 10px;" *ngIf="task.isOper">
     <div class="col-6 text-center"><button type="button" class="btn btn-outline-dark btn-lg btn-detail" (click)="goDetails()">查看详情</button></div>
     <div class="col-6 text-center"><button type="button" class="btn btn-primary btn-lg btn-site" (click)="goSites()">查看门店</button></div>
   </div>

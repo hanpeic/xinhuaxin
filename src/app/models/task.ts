@@ -12,4 +12,5 @@ export class Task {
   zoneCode: string;
   storeDoneNum: number;
   storeUndoneNum: number;
+  isOper: boolean;
 }

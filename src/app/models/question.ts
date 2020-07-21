@@ -27,4 +27,6 @@ export class Question {
   picMaxheight: number;
   picName: string;
   vidName: string;
+  isDemoPic: string;
+  isAnswered: string;
 }

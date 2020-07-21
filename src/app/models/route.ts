@@ -13,4 +13,8 @@ export class Route {
   address: string;
   signinDate: string;
   signoutDate: string;
+  isDemoPic: boolean;
+  isOper: boolean;
+  begHhmm: string;
+  endHhmm: string;
 }

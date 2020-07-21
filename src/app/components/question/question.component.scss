@@ -16,3 +16,10 @@
 .left-image {
   filter: invert(93%) sepia(100%) saturate(33%) hue-rotate(256deg) brightness(107%) contrast(100%);
 }
+.fixbar {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 5000;
+}

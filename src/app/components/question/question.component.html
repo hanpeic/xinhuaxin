@@ -1,11 +1,13 @@
-<nav class="navbar navbar-light bg-primary text-white title-bar" *ngIf="question">
+<nav class="navbar navbar-light bg-primary text-white title-bar fixbar" *ngIf="question">
   <a class="" (click)="gotoOnSite()" style="position: absolute; left: 16px">
     <img src="assets/icons/left.svg" width="25" height="25" class="left-image" alt="">
   </a>
-  <div class="title">{{ question.title ? question.subSort + '.' + question.title : '恭喜，问卷完成！'}}</div>
+  <div class="title" *ngIf="question.title && question.isAnswered">{{ question.subSort + '.' + question.title }}<span style="color: greenyellow">(已答题)</span></div>
+  <div class="title" *ngIf="question.title && !question.isAnswered">{{ question.subSort + '.' + question.title }}<span style="color: red">(未答题)</span></div>
+  <div class="title" *ngIf="!question.title">恭喜，问卷完成！</div>
 </nav>
 
-<div class="container mb-4 mt-3" *ngIf="question && question.title">
+<div class="container mb-4" style="margin-top: 38px" *ngIf="question && question.title">
   <div class="row mt-3">
     <div class="col-12 item-title"><b>判断标准:</b></div>
   </div>
@@ -20,7 +22,7 @@
             [maxWidth]="question.picMaxwidth || 1024"
             [maxHeight]="question.picMaxheight || 768"
             [readonly]="true"
-            *ngIf="question && showFile"></app-photo>
+            *ngIf="question && showFile && question.isDemoPic"></app-photo>
 </div>
 <form [formGroup]="form" (ngSubmit)="onSubmit()" *ngIf="question && question.title">
   <div class="container mt-4">
