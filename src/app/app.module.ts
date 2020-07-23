@@ -35,6 +35,7 @@ import { ChooseQuestionComponent } from './components/choose-question/choose-que
 import { PasswordComponent } from './components/myinfo/password/password.component';
 import { PhotoComponent } from './components/question/photo/photo.component';
 import { DemoComponent } from './components/onsite/demo/demo.component';
+import { ErrorComponent } from './components/error/error.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -60,7 +61,8 @@ import { DemoComponent } from './components/onsite/demo/demo.component';
     ChooseQuestionComponent,
     PasswordComponent,
     PhotoComponent,
-    DemoComponent
+    DemoComponent,
+    ErrorComponent
   ],
   imports: [
     BrowserModule,

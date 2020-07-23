@@ -55,8 +55,7 @@ export class ChooseQuestionComponent implements OnInit {
       if (res.code === 100) {
         this.titleList = res.titleList;
       } else {
-        this.authenticationService.logout();
-        window.location.reload();
+        this.router.navigate(['error'], {queryParams: {message: res.msg}});
       }
 
     }, error => {
@@ -75,8 +74,7 @@ export class ChooseQuestionComponent implements OnInit {
         this.getModuleList();
 
       } else {
-        this.authenticationService.logout();
-        window.location.reload();
+        this.router.navigate(['error'], {queryParams: {message: res.msg}});
       }
 
     }, error => {
@@ -93,8 +91,7 @@ export class ChooseQuestionComponent implements OnInit {
       if (res.code === 100) {
         this.moduleList = res.moduleList;
       } else {
-        this.authenticationService.logout();
-        window.location.reload();
+        this.router.navigate(['error'], {queryParams: {message: res.msg}});
       }
 
     }, error => {

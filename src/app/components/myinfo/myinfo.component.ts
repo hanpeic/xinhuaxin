@@ -41,8 +41,7 @@ export class MyinfoComponent implements OnInit {
           address: this.formBuilder.control(res.nowAddr ? res.nowAddr : '', Validators.required)
         });
       } else {
-        this.authenticationService.logout();
-        window.location.reload();
+        this.router.navigate(['error'], {queryParams: {message: res.msg}});
       }
 
     }, error => {

@@ -12,6 +12,7 @@ export class SitesComponent implements OnInit {
 
   constructor(private requestService: RequestService,
               private activatedRoute: ActivatedRoute,
+              private router: Router,
               private authenticationService: AuthenticationService) { }
   siteList: Site[];
   taskId: string;
@@ -39,8 +40,7 @@ export class SitesComponent implements OnInit {
       if (res.code === 100) {
         this.siteList = res.distributorList;
       } else {
-        this.authenticationService.logout();
-        window.location.reload();
+        this.router.navigate(['error'], {queryParams: {message: res.msg}});
       }
 
     }, error => {

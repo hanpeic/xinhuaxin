@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Route} from '../../models/route';
 import {RequestService} from '../../services/request.service';
 import {AuthenticationService} from '../../services/authentication-service.service';
+import {Router} from "@angular/router";
 @Component({
   selector: 'app-routes',
   templateUrl: './routes.component.html',
@@ -10,6 +11,7 @@ import {AuthenticationService} from '../../services/authentication-service.servi
 export class RoutesComponent implements OnInit {
 
   constructor(private requestService: RequestService,
+              private router: Router,
               private authenticationService: AuthenticationService) { }
   routeList: Route[];
   otherRouteList: Route[];
@@ -54,8 +56,7 @@ export class RoutesComponent implements OnInit {
         this.routeList = res.todaysLineList;
         this.otherRouteList = res.othersLineList;
       } else {
-        this.authenticationService.logout();
-        window.location.reload();
+        this.router.navigate(['error'], {queryParams: {message: res.msg}});
       }
 
     }, error => {

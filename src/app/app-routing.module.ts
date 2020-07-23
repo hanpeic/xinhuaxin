@@ -11,6 +11,7 @@ import {MyinfoComponent} from './components/myinfo/myinfo.component';
 import {QuestionComponent} from './components/question/question.component';
 import {TaskDetailComponent} from './components/task-detail/task-detail.component';
 import {ChooseQuestionComponent} from './components/choose-question/choose-question.component';
+import {ErrorComponent} from './components/error/error.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home', canActivate: [AuthGuard] },
@@ -23,7 +24,8 @@ const routes: Routes = [
   { path: 'myinfo', component: MyinfoComponent, canActivate: [AuthGuard] },
   { path: 'question', component: QuestionComponent, canActivate: [AuthGuard] },
   { path: 'task-detail', component: TaskDetailComponent, canActivate: [AuthGuard] },
-  { path: 'login', component: LoginComponent }
+  { path: 'login', component: LoginComponent },
+  { path: 'error', component: ErrorComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({

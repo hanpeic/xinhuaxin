@@ -26,7 +26,7 @@ export class RouteComponent implements OnInit {
       this.alertService.alert('非执行时间');
       return;
     }
-    if (this.route.isOper) {
+    if (this.route.isOper === undefined || this.route.isOper) {
       this.router.navigate(['onsite'], {queryParams: {lineId: this.route.lineId}});
     }
   }

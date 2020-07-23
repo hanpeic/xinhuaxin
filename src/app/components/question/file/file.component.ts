@@ -33,6 +33,8 @@ export class FileComponent implements OnInit, OnChanges, OnDestroy {
   vidName: string;
   @Input()
   picName: string;
+  @Input()
+  picMaxCount: number;
   constructor() { }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -86,7 +88,7 @@ export class FileComponent implements OnInit, OnChanges, OnDestroy {
       chunked: false,
       chunkSize: 10485760,
       threads: 1,
-      maxUploadNum: 300,
+      maxUploadNum: this.picMaxCount,
       imageMaxWidth: this.maxWidth,
       imageMaxHeight: this.maxHeight,
       service: {

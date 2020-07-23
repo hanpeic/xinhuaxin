@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Task} from '../../models/task';
 import {RequestService} from '../../services/request.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {AuthenticationService} from '../../services/authentication-service.service';
 
 @Component({
@@ -14,6 +14,7 @@ export class TaskDetailComponent implements OnInit {
   taskId: string;
   constructor(private requestService: RequestService,
               private activatedRoute: ActivatedRoute,
+              private router: Router,
               private authenticationService: AuthenticationService) { }
 
   ngOnInit(): void {
@@ -28,8 +29,7 @@ export class TaskDetailComponent implements OnInit {
       if (res.code === 100) {
         this.task = res;
       } else {
-        this.authenticationService.logout();
-        window.location.reload();
+        this.router.navigate(['error'], {queryParams: {message: res.msg}});
       }
 
     }, error => {

@@ -29,4 +29,5 @@ export class Question {
   vidName: string;
   isDemoPic: string;
   isAnswered: string;
+  picMaxCount: number;
 }

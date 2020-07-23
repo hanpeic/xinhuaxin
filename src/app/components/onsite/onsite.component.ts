@@ -172,8 +172,7 @@ export class OnsiteComponent implements OnInit {
       if (res.code === 100) {
         this.route = res;
       } else {
-        this.authenticationService.logout();
-        window.location.reload();
+        this.router.navigate(['error'], {queryParams: {message: res.msg}});
       }
 
     }, error => {

@@ -2,12 +2,13 @@
   <a class="" (click)="gotoOnSite()" style="position: absolute; left: 16px">
     <img src="assets/icons/left.svg" width="25" height="25" class="left-image" alt="">
   </a>
-  <div class="title" *ngIf="question.title && question.isAnswered">{{ question.subSort + '.' + question.title }}<span style="color: greenyellow">(已答题)</span></div>
-  <div class="title" *ngIf="question.title && !question.isAnswered">{{ question.subSort + '.' + question.title }}<span style="color: red">(未答题)</span></div>
-  <div class="title" *ngIf="!question.title">恭喜，问卷完成！</div>
+  <div class="title" *ngIf="question.title !== undefined && question.isAnswered !== undefined && question.isAnswered">{{ question.subSort + '.' + question.title }}<span style="color: greenyellow">(已答题)</span></div>
+  <div class="title" *ngIf="question.title !== undefined && question.isAnswered !== undefined && !question.isAnswered">{{ question.subSort + '.' + question.title }}<span style="color: red">(未答题)</span></div>
+  <div class="title" *ngIf="question.title !== undefined && question.isAnswered === undefined">{{ question.subSort + '.' + question.title }}</div>
+  <div class="title" *ngIf="question.title === undefined">恭喜，问卷完成！</div>
 </nav>
 
-<div class="container mb-4" style="margin-top: 38px" *ngIf="question && question.title">
+<div class="container mb-4" style="margin-top: 38px" *ngIf="question && question.title !== undefined">
   <div class="row mt-3">
     <div class="col-12 item-title"><b>判断标准:</b></div>
   </div>
@@ -22,9 +23,9 @@
             [maxWidth]="question.picMaxwidth || 1024"
             [maxHeight]="question.picMaxheight || 768"
             [readonly]="true"
-            *ngIf="question && showFile && question.isDemoPic"></app-photo>
+            *ngIf="question && showFile && (question.isDemoPic === undefined ||question.isDemoPic)"></app-photo>
 </div>
-<form [formGroup]="form" (ngSubmit)="onSubmit()" *ngIf="question && question.title">
+<form [formGroup]="form" (ngSubmit)="onSubmit()" *ngIf="question && question.title !== undefined">
   <div class="container mt-4">
     <div class="row" *ngFor="let answer of question.resOptList" >
       <div class="col-12">
@@ -45,6 +46,7 @@
               [maxHeight]="question.picMaxheight || 768"
               [readonly]="route.status > 3"
               [picName]="question.picName" [vidName]="question.vidName"
+              [picMaxCount]="question.picMaxCount || 300"
               *ngIf="question && showFile"></app-file>
     <div class="form-group mt-3">
       <button [disabled]="loading" class="btn btn-primary" *ngIf="route.status <= 3">
@@ -65,11 +67,11 @@
   </button>
 </div>
 <div class="container mt-5">
-  <button class="btn btn-primary" *ngIf="question && !question.title && question.code == 100" (click)="gotoOnSite()">
+  <button class="btn btn-primary" *ngIf="question && question.title === undefined && question.code == 100" (click)="gotoOnSite()">
     返回调研页面
   </button>
 </div>
-<div class="container mb-4 mt-3" *ngIf="question && question.title">
+<div class="container mb-4 mt-3" *ngIf="question && question.title !== undefined">
   <div class="row">
     <div class="col-6"><span class="item-title">模块:</span>{{question.module}}</div>
     <div class="col-6 "><span class="item-title">代码:</span>{{question.subCode}}</div>

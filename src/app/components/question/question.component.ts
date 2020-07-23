@@ -70,7 +70,7 @@ export class QuestionComponent implements OnInit {
     });
   }
   updateDisable() {
-    if (this.form.get('11').value) {
+    if (this.form.get('11') && this.form.get('11').value) {
       this.multiChangeDisable('11', true);
     } else {
       let ticked = false;
@@ -168,8 +168,7 @@ export class QuestionComponent implements OnInit {
         this.router.navigate(['choose-question'], {queryParams: {lineId: this.lineId}});
       } else {
         this.alertService.alert('提交失败，请重试!');
-        this.authenticationService.logout();
-        window.location.reload();
+        this.router.navigate(['error'], {queryParams: {message: res.msg}});
       }
       this.loading = false;
 
@@ -208,8 +207,7 @@ export class QuestionComponent implements OnInit {
         }
         // this.childFile.ngOnInit();
       } else {
-        this.authenticationService.logout();
-        window.location.reload();
+        this.router.navigate(['error'], {queryParams: {message: res.msg}});
       }
       this.loading = false;
 
@@ -310,8 +308,7 @@ export class QuestionComponent implements OnInit {
             null, null, null, null, null, null, null, null);
         }
       } else {
-        this.authenticationService.logout();
-        window.location.reload();
+        this.router.navigate(['error'], {queryParams: {message: res.msg}});
       }
 
     }, error => {

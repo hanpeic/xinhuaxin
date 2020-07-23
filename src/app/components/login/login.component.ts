@@ -56,6 +56,7 @@ export class LoginComponent implements OnInit {
           if (data.code === 100) {
             const user = new User();
             user.username = this.f.username.value;
+            user.userType = data.userType;
             this.authenticationService.setUserInfo(user);
             // this.router.navigate([this.returnUrl]);
             this.router.navigateByUrl(this.returnUrl);
