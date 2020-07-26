@@ -1,10 +1,10 @@
 <div class="row">
-  <div class="col-12 item-title">图片上传:{{ picCount && picCount > 0 ? '(需要上传' + picCount + '张)' : '(无需上传图片)' }}</div>
+  <div class="col-12 item-title">图片上传:{{ picCount && picCount > 0 ? '(需要上传' + picCount + '张)' : '(需要上传0张)' }}</div>
 </div>
 <div class="row" *ngIf="picName">
   <div class="col-12 item-name">({{ picName }})</div>
 </div>
-<div id="uploadImage_wup" class="wup_container {{picCount && picCount > 0 ? '' : 'd-none'}} ">
+<div id="uploadImage_wup" class="wup_container">
   <input id="uploadImage" name="projLineSuvSub_image" value="" class="wup_input image " data-msg-required="请上传图片">
   <input id="uploadImage__del" name="projLineSuvSub_image__del" value="" type="hidden">
   <div class="area">
@@ -31,12 +31,12 @@
   </div>
 </div>
 <div class="row mt-2">
-  <div class="col-12 item-title">视频上传:{{ vidCount && vidCount > 0 ? '(需要上传' + vidCount + '个)' : '(无需上传视频)' }}</div>
+  <div class="col-12 item-title">视频上传:{{ vidCount && vidCount > 0 ? '(需要上传' + vidCount + '个)' : '(需要上传0个)' }}</div>
 </div>
 <div class="row" *ngIf="vidName">
   <div class="col-12 item-name">({{ vidName }})</div>
 </div>
-<div id="uploadFile_wup" class="wup_container {{vidCount && vidCount > 0 ? '' : 'd-none'}}">
+<div id="uploadFile_wup" class="wup_container">
   <input id="uploadFile" name="projLineSuvSub_file" value="" class="wup_input all " data-msg-required="请上传文件">
   <input id="uploadFile__del" name="projLineSuvSub_file__del" value="" type="hidden">
   <div class="area">
