@@ -30,6 +30,8 @@ export class QuestionComponent implements OnInit {
   // new parameters for get one question mode
   moduleCode: string;
   titleCode: string;
+  isDis: boolean;
+  isOrder = true;
   @ViewChild(FileComponent) childFile: FileComponent;
   constructor(private requestService: RequestService,
               private activatedRoute: ActivatedRoute,
@@ -49,6 +51,8 @@ export class QuestionComponent implements OnInit {
     this.lineId = this.activatedRoute.snapshot.queryParamMap.get('lineId');
     this.moduleCode = this.activatedRoute.snapshot.queryParamMap.get('moduleCode');
     this.titleCode = this.activatedRoute.snapshot.queryParamMap.get('titleCode');
+    this.isDis = this.authenticationService.isDis();
+    this.isOrder = this.activatedRoute.snapshot.queryParamMap.get('isOrder') === 'true';
     if (this.lineId) {
       this.fetchLine(this.lineId);
     }
@@ -181,9 +185,9 @@ export class QuestionComponent implements OnInit {
     });
   }
   getQuestion(isSave, direction, lineId, modelSubjectId, subSort, optResult, isLast,
-              subjectId, situDesc, uploadFile, uploadFileDel, uploadImage, uploadImageDel) {
+              subjectId, situDesc, uploadFile, uploadFileDel, uploadImage, uploadImageDel, isOrder) {
     this.requestService.getQuestion(isSave, direction, lineId, modelSubjectId,
-      subSort, optResult, isLast, subjectId, situDesc, uploadFile, uploadFileDel, uploadImage, uploadImageDel).subscribe(res => {
+      subSort, optResult, isLast, subjectId, situDesc, uploadFile, uploadFileDel, uploadImage, uploadImageDel, isOrder).subscribe(res => {
       console.log(res);
       if (res.code === 100) {
         this.showFile = false;
@@ -261,14 +265,14 @@ export class QuestionComponent implements OnInit {
       }
     }
     this.loading = true;
-    if (this.titleCode && this.moduleCode) {
+    /* if (this.titleCode && this.moduleCode) {
       this.saveQuestion(this.lineId, this.question.subjectid, this.question.modelSubjectId, result, this.situDesc,
         uploadFile.value, uploadFileDel.value, uploadImage.value, uploadImageDel.value);
-    } else {
+    } else { */
       this.getQuestion(true, 'next', this.lineId,
         this.question.modelSubjectId, this.question.subSort, result, this.question.last, this.question.subjectid
-        , this.situDesc, uploadFile.value, uploadFileDel.value, uploadImage.value, uploadImageDel.value);
-    }
+        , this.situDesc, uploadFile.value, uploadFileDel.value, uploadImage.value, uploadImageDel.value, this.isOrder);
+    // }
   }
 
   gotoNext() {
@@ -276,7 +280,7 @@ export class QuestionComponent implements OnInit {
     this.alertService.clear();
     this.getQuestion(false, 'next', this.lineId,
       this.question.modelSubjectId, this.question.subSort, null, this.question.last, this.question.subjectid
-      , null, null, null, null, null);
+      , null, null, null, null, null, this.isOrder);
   }
 
   gotoPrevious() {
@@ -284,7 +288,7 @@ export class QuestionComponent implements OnInit {
     this.alertService.clear();
     this.getQuestion(false, 'previous', this.lineId,
       this.question.modelSubjectId, this.question.subSort, null, this.question.last, this.question.subjectid
-      , null, null, null, null, null);
+      , null, null, null, null, null, this.isOrder);
   }
 
   gotoOnSite() {
@@ -305,7 +309,7 @@ export class QuestionComponent implements OnInit {
         }
         else {
           this.getQuestion(false, 'next', this.lineId, null, -1,
-            null, null, null, null, null, null, null, null);
+            null, null, null, null, null, null, null, null, this.isOrder);
         }
       } else {
         this.router.navigate(['error'], {queryParams: {message: res.msg}});

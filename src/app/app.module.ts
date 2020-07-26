@@ -36,6 +36,7 @@ import { PasswordComponent } from './components/myinfo/password/password.compone
 import { PhotoComponent } from './components/question/photo/photo.component';
 import { DemoComponent } from './components/onsite/demo/demo.component';
 import { ErrorComponent } from './components/error/error.component';
+import { DishomeComponent } from './components/dishome/dishome.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -62,7 +63,8 @@ import { ErrorComponent } from './components/error/error.component';
     PasswordComponent,
     PhotoComponent,
     DemoComponent,
-    ErrorComponent
+    ErrorComponent,
+    DishomeComponent
   ],
   imports: [
     BrowserModule,

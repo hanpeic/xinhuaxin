@@ -1,0 +1,21 @@
+.task-title {
+  white-space: nowrap;
+  text-align: left;
+  font-size: 18px;
+  font-weight: 700;
+  font-style: normal;
+  text-decoration: none;
+  font-family: 微软雅黑;
+  color: rgb(51, 51, 51);
+  margin-left: 15px;
+}
+.task-line {
+  flex: 1;
+  padding-left: 8px;
+  padding-right: 8px;
+  .task-inline {
+    width: 100%;
+    height: 50%;
+    border-bottom: 1px solid #6d6d6d;
+  }
+}

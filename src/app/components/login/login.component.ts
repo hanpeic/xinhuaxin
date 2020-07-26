@@ -59,7 +59,12 @@ export class LoginComponent implements OnInit {
             user.userType = data.userType;
             this.authenticationService.setUserInfo(user);
             // this.router.navigate([this.returnUrl]);
-            this.router.navigateByUrl(this.returnUrl);
+            // this.router.navigateByUrl(this.returnUrl);
+            if (user.userType === undefined || user.userType === 1) {
+              this.router.navigate(['home']);
+            } else {
+              this.router.navigate(['dishome']);
+            }
           } else {
             this.alertService.alert(data.msg);
           }

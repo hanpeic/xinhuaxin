@@ -36,4 +36,12 @@ export class AuthenticationService {
     localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
   }
+
+  isDis() {
+    const currentUser = this.currentUserSubject.value;
+    if (currentUser.userType && currentUser.userType === 2) {
+      return true;
+    }
+    return false;
+  }
 }

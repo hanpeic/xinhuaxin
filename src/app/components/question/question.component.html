@@ -9,10 +9,10 @@
 </nav>
 
 <div class="container mb-4" style="margin-top: 38px" *ngIf="question && question.title !== undefined">
-  <div class="row mt-3">
+  <div class="row mt-3" *ngIf="!isDis">
     <div class="col-12 item-title"><b>判断标准:</b></div>
   </div>
-  <div class="row">
+  <div class="row" *ngIf="!isDis">
     <div class="col-12 pre-line">{{question.standard}}</div>
   </div>
   <div class="row mt-3">

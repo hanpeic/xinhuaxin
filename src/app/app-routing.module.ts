@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {HomeComponent} from './components/home/home.component';
+import {DishomeComponent} from './components/dishome/dishome.component';
 import {TasksComponent} from './components/tasks/tasks.component';
 import {SitesComponent} from './components/sites/sites.component';
 import {RoutesComponent} from './components/routes/routes.component';
@@ -16,6 +17,7 @@ import {ErrorComponent} from './components/error/error.component';
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home', canActivate: [AuthGuard] },
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: 'dishome', component: DishomeComponent, canActivate: [AuthGuard] },
   { path: 'tasks', component: TasksComponent, canActivate: [AuthGuard] },
   { path: 'sites', component: SitesComponent, canActivate: [AuthGuard] },
   { path: 'routes', component: RoutesComponent, canActivate: [AuthGuard] },
