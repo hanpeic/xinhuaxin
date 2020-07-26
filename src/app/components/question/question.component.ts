@@ -299,6 +299,10 @@ export class QuestionComponent implements OnInit {
     }
   }
 
+  gotoOnSite2() {
+    this.router.navigate(['onsite'], {queryParams: {lineId: this.lineId}});
+  }
+
   fetchLine(lineId) {
     this.requestService.retrieveLine(lineId).subscribe(res => {
       console.log(res);

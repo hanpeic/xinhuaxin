@@ -52,7 +52,7 @@ export class FileComponent implements OnInit, OnChanges, OnDestroy {
       filePathInputId: '',
       fileNameInputId: '',
       uploadType: 'media',
-      maxFileSize: 500*1024*1024,
+      maxFileSize: 500 * 1024 * 1024,
       imageAllowSuffixes: '.gif,.bmp,.jpeg,.jpg,.ico,.png,.tif,.tiff,',
       mediaAllowSuffixes: '.flv,.swf,.mkv,webm,.mid,.mov,.mp3,.mp4,.m4v,.mpc,.mpeg,.mpg,.swf,.wav,.wma,.wmv,.avi,.rm,.rmi,.rmvb,.aiff,.asf,.ogg,.ogv,',
       fileAllowSuffixes: '.doc,.docx,.rtf,.xls,.xlsx,.csv,.ppt,.pptx,.pdf,.vsd,.txt,.md,.xml,.rar,.zip,7z,.tar,.tgz,.jar,.gz,.gzip,.bz2,.cab,.iso,.ipa,.apk,',
@@ -71,7 +71,6 @@ export class FileComponent implements OnInit, OnChanges, OnDestroy {
       isLazy: false,
       preview: ''
     });
-
     $('#uploadImageUploader').webuploader({
       id: 'uploadImage',
       bizKey: this.bizKey,
@@ -81,7 +80,7 @@ export class FileComponent implements OnInit, OnChanges, OnDestroy {
       filePathInputId: '',
       fileNameInputId: '',
       uploadType: 'image',
-      maxFileSize: 500*1024*1024,
+      maxFileSize: 500 * 1024 * 1024,
       imageAllowSuffixes: '.gif,.bmp,.jpeg,.jpg,.ico,.png,.tif,.tiff,',
       mediaAllowSuffixes: '.flv,.swf,.mkv,webm,.mid,.mov,.mp3,.mp4,.m4v,.mpc,.mpeg,.mpg,.swf,.wav,.wma,.wmv,.avi,.rm,.rmi,.rmvb,.aiff,.asf,.ogg,.ogv,',
       fileAllowSuffixes: '.doc,.docx,.rtf,.xls,.xlsx,.csv,.ppt,.pptx,.pdf,.vsd,.txt,.md,.xml,.rar,.zip,7z,.tar,.tgz,.jar,.gz,.gzip,.bz2,.cab,.iso,.ipa,.apk,',
