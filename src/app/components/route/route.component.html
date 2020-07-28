@@ -7,10 +7,13 @@
   </div>
   <div class="row no-gutters black mt-2" style="margin-left: -5px; margin-right: 10px;">
     <div class="col-8">{{route.projName}}</div>
-    <div class="col-4 text-right">{{route.surveyDate}}</div>
+    <div class="col-4 text-right">{{route.surveyDate}}<br>{{this.route.begHhmm && this.route.endHhmm ? this.route.begHhmm + '-' + this.route.endHhmm : '' }}</div>
   </div>
   <div class="row no-gutters black mt-2 mb-2" style="margin-left: -5px; margin-right: 10px;">
     <div class="col-8">{{route.address}}</div>
     <div class="col-4 text-right"><img src="assets/icons/cursor.svg" width="25" height="25" class="cursor" *ngIf="route.isOper === undefined || route.isOper"></div>
+  </div>
+  <div class="row no-gutters black mt-2 mb-2 task" style="margin-left: -5px; margin-right: 10px;" *ngIf="isDis">
+    <div class="col-12">必须在指定时间段完成任务</div>
   </div>
 </div>

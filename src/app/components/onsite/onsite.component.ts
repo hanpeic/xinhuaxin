@@ -159,7 +159,7 @@ export class OnsiteComponent implements OnInit {
     }
   }
   beginTest() {
-    this.router.navigate(['question'], {queryParams: {lineId: this.lineId}});
+    this.router.navigate(['question'], {queryParams: {lineId: this.lineId, isOrder: 'true'}});
   }
 
   beginTestOne() {
@@ -183,7 +183,11 @@ export class OnsiteComponent implements OnInit {
     });
   }
   gotoRoute() {
-    this.router.navigate(['routes']);
+    if (this.authenticationService.isDis()) {
+      this.router.navigate(['dishome']);
+    } else {
+      this.router.navigate(['routes']);
+    }
   }
   submitLine() {
     const modalRef = this.matDialog.open(SubmitComponent, {

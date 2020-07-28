@@ -1,0 +1,11 @@
+<div class="container">
+  <div class="row mt-3">
+    <div class="task-title">当前任务</div>
+    <div class="task-line"><div class="task-inline"></div></div>
+  </div>
+</div>
+<div *ngFor="let route of routeList">
+  <app-route [route]="route" ></app-route>
+</div>
+<div style="height: 42px"></div>
+<app-menu></app-menu>

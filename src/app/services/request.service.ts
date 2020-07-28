@@ -15,6 +15,11 @@ export class RequestService {
     return this.http.post<any>(`${this.stateService.apiEndpoint}/home`, payload, { withCredentials: true });
   }
 
+  retrieveDishome(): Observable<any> {
+    const payload = new HttpParams().set('loginName', 'user');
+    return this.http.post<any>(`${this.stateService.apiEndpoint}/disHome`, payload, { withCredentials: true });
+  }
+
   retrievePersion(): Observable<any> {
     const payload = new HttpParams().set('loginName', 'user');
     return this.http.post<any>(`${this.stateService.apiEndpoint}/getPersonInfo`, payload, { withCredentials: true });
@@ -28,10 +33,11 @@ export class RequestService {
   }
 
   getQuestion(isSave, direction, lineId, modelSubjectId, subSort, optResult, isLast,
-              subjectId, situDesc, uploadFile, uploadFileDel, uploadImage, uploadImageDel): Observable<any> {
+              subjectId, situDesc, uploadFile, uploadFileDel, uploadImage, uploadImageDel, isOrder): Observable<any> {
     let payload = new HttpParams().set('isSave', isSave)
       .set('direction', direction)
       .set('lineId', lineId)
+      .set('isOrder', isOrder)
       .set('subSort', subSort);
     if (modelSubjectId) {
       payload = payload.set('modelSubjectId', modelSubjectId);

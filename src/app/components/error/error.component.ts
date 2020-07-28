@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
+import {AuthenticationService} from "../../services/authentication-service.service";
 
 @Component({
   selector: 'app-error',
@@ -8,14 +9,17 @@ import {ActivatedRoute, Router} from '@angular/router';
 })
 export class ErrorComponent implements OnInit {
   message: string;
-  constructor(private activatedRoute: ActivatedRoute, private router: Router) { }
+  constructor(private activatedRoute: ActivatedRoute, private router: Router, private authenticationService: AuthenticationService) { }
 
   ngOnInit(): void {
     this.message = this.activatedRoute.snapshot.queryParamMap.get('message');
   }
 
   gotoRoute() {
-    this.router.navigate(['home']);
+    if (this.authenticationService.isDis()) {
+      this.router.navigate(['dishome']);
+    } else {
+      this.router.navigate(['home']);
+    }
   }
-
 }

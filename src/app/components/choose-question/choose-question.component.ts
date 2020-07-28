@@ -106,6 +106,7 @@ export class ChooseQuestionComponent implements OnInit {
   }
   onSubmit() {
     this.router.navigate(['question'], {queryParams: {lineId: this.lineId,
-        moduleCode: this.selectForm.controls.moduleCode.value, titleCode: this.selectForm.controls.titleCode.value }});
+        moduleCode: this.selectForm.controls.moduleCode.value, titleCode: this.selectForm.controls.titleCode.value,
+        isOrder: 'false'}});
   }
 }
