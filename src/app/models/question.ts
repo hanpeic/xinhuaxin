@@ -30,4 +30,5 @@ export class Question {
   isDemoPic: string;
   isAnswered: string;
   picMaxCount: number;
+  vidMaxCount: number;
 }

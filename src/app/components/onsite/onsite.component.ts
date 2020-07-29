@@ -24,6 +24,7 @@ export class OnsiteComponent implements OnInit {
   route: Route;
   loading = false;
   operatingSystem: string;
+  isDis: boolean;
 
   // webcam snapshot trigger
   // private trigger: Subject<void> = new Subject<void>();
@@ -37,6 +38,7 @@ export class OnsiteComponent implements OnInit {
   ngOnInit(): void {
     this.operatingSystem = this.getSystem();
     this.lineId = this.activatedRoute.snapshot.queryParamMap.get('lineId');
+    this.isDis = this.authenticationService.isDis();
     if (this.lineId) {
       this.fetchLine(this.lineId);
     }

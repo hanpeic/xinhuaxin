@@ -47,6 +47,8 @@
               [readonly]="route.status > 3"
               [picName]="question.picName" [vidName]="question.vidName"
               [picMaxCount]="question.picMaxCount || 300"
+              [vidMaxCount]="question.vidMaxCount || 300"
+              [useCapture]="isDis ? true : false"
               *ngIf="question && showFile"></app-file>
     <div class="form-group mt-3">
       <button [disabled]="loading" class="btn btn-primary" *ngIf="route.status <= 3">
@@ -77,14 +79,14 @@
     <div class="col-6"><span class="item-title">模块:</span>{{question.module}}</div>
     <div class="col-6 "><span class="item-title">代码:</span>{{question.subCode}}</div>
   </div>
-  <div class="row mt-3">
+  <div class="row mt-3" *ngIf="!isDis">
     <div class="col-6 item-title">分值</div>
     <div class="col-6 ">{{question.maxscore}}</div>
   </div>
-  <div class="row">
+  <div class="row" *ngIf="!isDis">
     <div class="col-12 item-title">扣分说明:</div>
   </div>
-  <div class="row">
+  <div class="row" *ngIf="!isDis">
     <div class="col-12 pre-line">{{question.deductDesc}}</div>
   </div>
 </div>

@@ -1,7 +1,7 @@
 <nav class="navbar navbar-light bg-primary text-white title-bar">
-  <span class="title">个人信息</span>
+  <span class="title">{{isDis ? '系统' : '个人信息' }}</span>
 </nav>
-<div class="container mb-4">
+<div class="container mb-4" *ngIf="!isDis">
   <div class="row">
     <div class="col-6">员工编号</div>
     <div class="col-6 ">{{asseNo}}</div>
@@ -11,7 +11,7 @@
     <div class="col-6 ">{{name}}</div>
   </div>
 </div>
-<form [formGroup]="personForm" (ngSubmit)="onSubmit()" *ngIf="personForm">
+<form [formGroup]="personForm" (ngSubmit)="onSubmit()" *ngIf="personForm && !isDis">
   <div class="container">
     <div class="form-group">
       <label for="phone">联系电话</label>
@@ -35,7 +35,7 @@
     </div>
   </div>
 </form>
-<div class="container mt-4">
+<div class="container mt-5">
   <div class="row">
     <div class="col-12">
       <button class="btn btn-primary" (click)="updatePassword()">

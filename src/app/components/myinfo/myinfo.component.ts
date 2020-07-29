@@ -18,6 +18,7 @@ export class MyinfoComponent implements OnInit {
   name: string;
   loading = false;
   submitted = false;
+  isDis: boolean;
   constructor(private formBuilder: FormBuilder,
               private authenticationService: AuthenticationService,
               private router: Router,
@@ -26,7 +27,10 @@ export class MyinfoComponent implements OnInit {
               private requestService: RequestService) { }
 
   ngOnInit(): void {
-    this.getUser();
+    this.isDis = this.authenticationService.isDis();
+    if (!this.isDis) {
+      this.getUser();
+    }
   }
   get f() { return this.personForm.controls; }
 

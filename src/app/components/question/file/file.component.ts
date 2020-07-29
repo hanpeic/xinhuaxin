@@ -35,6 +35,10 @@ export class FileComponent implements OnInit, OnChanges, OnDestroy {
   picName: string;
   @Input()
   picMaxCount: number;
+  @Input()
+  vidMaxCount: number;
+  @Input()
+  useCapture: boolean;
   constructor() { }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -59,7 +63,7 @@ export class FileComponent implements OnInit, OnChanges, OnDestroy {
       chunked: true,
       chunkSize: 10485760,
       threads: 1,
-      maxUploadNum: 300,
+      maxUploadNum: this.vidMaxCount,
       imageMaxWidth: 1024,
       imageMaxHeight: 768,
       service: {
@@ -69,7 +73,8 @@ export class FileComponent implements OnInit, OnChanges, OnDestroy {
       },
       extendParams: {},
       isLazy: false,
-      preview: ''
+      preview: '',
+      useCapture: this.useCapture
     });
     $('#uploadImageUploader').webuploader({
       id: 'uploadImage',
@@ -97,7 +102,8 @@ export class FileComponent implements OnInit, OnChanges, OnDestroy {
       },
       extendParams: {},
       isLazy: false,
-      preview: ''
+      preview: '',
+      useCapture: this.useCapture
     });
   }
   ngOnDestroy(): void {
