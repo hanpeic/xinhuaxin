@@ -159,7 +159,7 @@
             p.accept = {
               title: "Medias",
               extensions: s.mediaAllowSuffixes.replace(/\./g, ""),
-              mimeTypes: "*/*"
+              mimeTypes: "video/*"
             }
           } else {
             if (s.uploadType == "file") {
