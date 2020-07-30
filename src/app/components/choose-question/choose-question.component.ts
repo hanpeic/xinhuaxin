@@ -4,6 +4,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {AuthenticationService} from '../../services/authentication-service.service';
 import {Route} from '../../models/route';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AlertService} from "../../services/alert.service";
 
 @Component({
   selector: 'app-choose-question',
@@ -20,6 +21,7 @@ export class ChooseQuestionComponent implements OnInit {
   constructor(private requestService: RequestService,
               private activatedRoute: ActivatedRoute,
               private router: Router,
+              private alertService: AlertService,
               private formBuilder: FormBuilder,
               private changeDetector: ChangeDetectorRef,
               private authenticationService: AuthenticationService) { }
@@ -55,14 +57,14 @@ export class ChooseQuestionComponent implements OnInit {
       if (res.code === 100) {
         this.titleList = res.titleList;
       } else {
-        this.router.navigate(['error'], {queryParams: {message: res.msg}});
+        this.alertService.alert('获取指标失败！错误信息：' + res.msg);
       }
 
     }, error => {
       // this.alertService.error(error);
       console.log(error);
-      this.authenticationService.logout();
-      window.location.reload();
+      const errMessage = `获取指标失败！错误码: ${error.status}, 内容: ${error.error && error.error.msg ? error.error.msg : error.statusText }`;
+      this.alertService.alert(errMessage);
     });
   }
 
@@ -80,8 +82,8 @@ export class ChooseQuestionComponent implements OnInit {
     }, error => {
       // this.alertService.error(error);
       console.log(error);
-      this.authenticationService.logout();
-      window.location.reload();
+      const errMessage = `错误码: ${error.status}, 内容: ${error.error && error.error.msg ? error.error.msg : error.statusText }`;
+      this.router.navigate(['error'], {queryParams: {message: errMessage}});
     });
   }
 
@@ -91,14 +93,14 @@ export class ChooseQuestionComponent implements OnInit {
       if (res.code === 100) {
         this.moduleList = res.moduleList;
       } else {
-        this.router.navigate(['error'], {queryParams: {message: res.msg}});
+        this.alertService.alert('获取模块失败！错误信息：' + res.msg);
       }
 
     }, error => {
       // this.alertService.error(error);
       console.log(error);
-      this.authenticationService.logout();
-      window.location.reload();
+      const errMessage = `获取模块失败！错误码: ${error.status}, 内容: ${error.error && error.error.msg ? error.error.msg : error.statusText }`;
+      this.alertService.alert(errMessage);
     });
   }
   gotoRoute() {

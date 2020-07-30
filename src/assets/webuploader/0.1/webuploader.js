@@ -4884,6 +4884,8 @@
                 if (opts.capture) {
                   input.attr('capture', opts.capture);
                 }
+                //input.attr('capture', 'camera');
+                //debugger;
                 input.addClass('webuploader-element-invisible');
     
                 label.on( 'click', function() {

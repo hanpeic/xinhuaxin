@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Task} from '../../models/task';
 import {RequestService} from '../../services/request.service';
 import {AuthenticationService} from '../../services/authentication-service.service';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-tasks',
@@ -11,7 +12,7 @@ import {AuthenticationService} from '../../services/authentication-service.servi
 export class TasksComponent implements OnInit {
 
   constructor(private requestService: RequestService,
-              private authenticationService: AuthenticationService) { }
+              private authenticationService: AuthenticationService, private router: Router) { }
   filter: string;
   taskList: Task[];
   ngOnInit(): void {
@@ -48,15 +49,14 @@ export class TasksComponent implements OnInit {
       if (res.code === 100) {
         this.taskList = res.taskUndone.concat(res.taskDoing);
       } else {
-        this.authenticationService.logout();
-        window.location.reload();
+        this.router.navigate(['error'], {queryParams: {message: res.msg}});
       }
 
     }, error => {
       // this.alertService.error(error);
       console.log(error);
-      this.authenticationService.logout();
-      window.location.reload();
+      const errMessage = `错误码: ${error.status}, 内容: ${error.error && error.error.msg ? error.error.msg : error.statusText }`;
+      this.router.navigate(['error'], {queryParams: {message: errMessage}});
     });
   }
 }

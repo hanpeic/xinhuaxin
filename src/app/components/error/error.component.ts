@@ -22,4 +22,8 @@ export class ErrorComponent implements OnInit {
       this.router.navigate(['home']);
     }
   }
+  logout() {
+    this.authenticationService.logout();
+    this.router.navigate(['/']);
+  }
 }

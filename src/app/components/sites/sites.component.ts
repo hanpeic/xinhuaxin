@@ -46,8 +46,8 @@ export class SitesComponent implements OnInit {
     }, error => {
       // this.alertService.error(error);
       console.log(error);
-      this.authenticationService.logout();
-      window.location.reload();
+      const errMessage = `错误码: ${error.status}, 内容: ${error.error && error.error.msg ? error.error.msg : error.statusText }`;
+      this.router.navigate(['error'], {queryParams: {message: errMessage}});
     });
   }
 }

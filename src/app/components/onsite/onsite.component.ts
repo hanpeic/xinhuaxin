@@ -96,8 +96,8 @@ export class OnsiteComponent implements OnInit {
           this.loading = false;
           // this.alertService.error(error);
           console.log(error);
-          this.authenticationService.logout();
-          window.location.reload();
+          const errMessage = `签到失败！错误码: ${error.status}, 内容: ${error.error && error.error.msg ? error.error.msg : error.statusText }`;
+          this.alertService.alert(errMessage);
         });
       }, (error) => {
         this.loading = false;
@@ -131,8 +131,8 @@ export class OnsiteComponent implements OnInit {
           // this.alertService.error(error);
           console.log(error);
           this.loading = false;
-          this.authenticationService.logout();
-          window.location.reload();
+          const errMessage = `签出失败！错误码: ${error.status}, 内容: ${error.error && error.error.msg ? error.error.msg : error.statusText }`;
+          this.alertService.alert(errMessage);
         });
       }, (error) => {
         this.loading = false;
@@ -180,8 +180,8 @@ export class OnsiteComponent implements OnInit {
     }, error => {
       // this.alertService.error(error);
       console.log(error);
-      this.authenticationService.logout();
-      window.location.reload();
+      const errMessage = `错误码: ${error.status}, 内容: ${error.error && error.error.msg ? error.error.msg : error.statusText }`;
+      this.router.navigate(['error'], {queryParams: {message: errMessage}});
     });
   }
   gotoRoute() {
@@ -210,8 +210,8 @@ export class OnsiteComponent implements OnInit {
         }, error => {
           // this.alertService.error(error);
           console.log(error);
-          this.authenticationService.logout();
-          window.location.reload();
+          const errMessage = `提交失败！错误码: ${error.status}, 内容: ${error.error && error.error.msg ? error.error.msg : error.statusText }`;
+          this.alertService.alert(errMessage);
         });
       }
     });

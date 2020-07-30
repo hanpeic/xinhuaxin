@@ -210,9 +210,19 @@
         }
         return !N
       });
+      var my_capture = '';
+      if(s.useCapture) {
+        if (s.uploadType == "media") {
+          my_capture = 'camcorder';
+        }
+        if (s.uploadType == "image") {
+          my_capture = 'camera';
+        }
+      }
       H.addButton({
         id: "#" + z + "filePicker2",
-        label: t("继续添加")
+        label: t("继续添加"),
+        capture: my_capture
       });
       if (!s.isLazy) {
         x.hide()

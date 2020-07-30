@@ -180,8 +180,9 @@ export class QuestionComponent implements OnInit {
       // this.alertService.error(error);
       console.log(error);
       this.loading = false;
-      this.authenticationService.logout();
-      window.location.reload();
+      this.alertService.alert('提交失败，请重试!');
+      // this.authenticationService.logout();
+      // window.location.reload();
     });
   }
   getQuestion(isSave, direction, lineId, modelSubjectId, subSort, optResult, isLast,
@@ -219,8 +220,8 @@ export class QuestionComponent implements OnInit {
       // this.alertService.error(error);
       console.log(error);
       this.loading = false;
-      this.authenticationService.logout();
-      window.location.reload();
+      const errMessage = `获取题目出错，lineId ${lineId} modelSubjectId ${modelSubjectId} subjectId ${subjectId}, 错误码: ${error.status}, 内容: ${error.error && error.error.msg ? error.error.msg : error.statusText }`;
+      this.router.navigate(['error'], {queryParams: {message: errMessage}});
     });
   }
 
@@ -322,8 +323,8 @@ export class QuestionComponent implements OnInit {
     }, error => {
       // this.alertService.error(error);
       console.log(error);
-      this.authenticationService.logout();
-      window.location.reload();
+      const errMessage = `错误码: ${error.status}, 内容: ${error.error && error.error.msg ? error.error.msg : error.statusText }`;
+      this.router.navigate(['error'], {queryParams: {message: errMessage}});
     });
   }
 
@@ -361,8 +362,8 @@ export class QuestionComponent implements OnInit {
       // this.alertService.error(error);
       console.log(error);
       this.loading = false;
-      this.authenticationService.logout();
-      window.location.reload();
+      const errMessage = `错误码: ${error.status}, 内容: ${error.error && error.error.msg ? error.error.msg : error.statusText }`;
+      this.router.navigate(['error'], {queryParams: {message: errMessage}});
     });
   }
 }

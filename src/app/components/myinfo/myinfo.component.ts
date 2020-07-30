@@ -52,8 +52,8 @@ export class MyinfoComponent implements OnInit {
     }, error => {
       // this.alertService.error(error);
       console.log(error);
-      this.authenticationService.logout();
-      window.location.reload();
+      //this.authenticationService.logout();
+      //window.location.reload();
     });
   }
 
@@ -87,8 +87,8 @@ export class MyinfoComponent implements OnInit {
         error => {
           this.alertService.error('更新失败，请重试');
           this.loading = false;
-          this.authenticationService.logout();
-          window.location.reload();
+          // this.authenticationService.logout();
+          // window.location.reload();
         });
   }
 
