@@ -632,6 +632,24 @@
           k.refreshFileList([M.fileUpload], false)
         }
       });
+      H.on("uploadComplete", function(file) {
+        console.log(file);
+        var downloadUrl = '';
+        if(s.autoDownload) {
+          if (file && file.fileUpload && file.fileUpload.status === '0') {
+            downloadUrl = 'imgdownload://' + window.location.origin + s.service.download + file.fileUpload.id;
+          } else if (file && file.statusText === '' && file.fileUploadId) {
+            downloadUrl = 'imgdownload://' + window.location.origin + s.service.download + file.fileUploadId;
+          }
+          console.log(downloadUrl);
+          if (downloadUrl) {
+            var a = document.createElement('a');
+            var event = new MouseEvent('click');
+            a.href = downloadUrl;
+            a.dispatchEvent(event);
+          }
+        }
+      });
       H.on("uploadSuccess", function(M, Q) {
         var T = b("#" + z + M.id)
           , S = T.find(".progress-bar");
@@ -810,8 +828,8 @@
               , M = (js.startWith(O.fileUrl, ctxPath) || js.startWith(O.fileUrl, "http://") || js.startWith(O.fileUrl, "https://") ? "" : ctxPath) + O.fileUrl
               , R = (s.returnPath ? M : s.service.download + O.id);
             if (q) {
-              $li = b('<li id="' + O.id + '"><p class="title">' + O.fileName + '</p><p class="imgWrap"><img src="' + M + '"/></p><p class="progress"><span></span></p><div class="file-panel"><span class="cancel ' + (!s.readonly ? "" : "hide") + '" fileUploadId="' + O.id + '" fileUrl="' + M + '" fileName="' + O.fileName + '" fileSize="' + O.fileEntity.fileSize + '">' + t("删除") + "</span></div>" + (O.message ? O.message : "") + "</li>");
-              //$li = b('<li id="' + O.id + '"><p class="title"><a target="_blank" href="imgdownload://' + window.location.origin + R + '">' + O.fileName + '</a></p><p class="imgWrap"><img src="' + M + '"/></p><p class="progress"><span></span></p><div class="file-panel"><span class="cancel ' + (!s.readonly ? "" : "hide") + '" fileUploadId="' + O.id + '" fileUrl="' + M + '" fileName="' + O.fileName + '" fileSize="' + O.fileEntity.fileSize + '">' + t("删除") + "</span></div>" + (O.message ? O.message : "") + "</li>");
+              //$li = b('<li id="' + O.id + '"><p class="title">' + O.fileName + '</p><p class="imgWrap"><img src="' + M + '"/></p><p class="progress"><span></span></p><div class="file-panel"><span class="cancel ' + (!s.readonly ? "" : "hide") + '" fileUploadId="' + O.id + '" fileUrl="' + M + '" fileName="' + O.fileName + '" fileSize="' + O.fileEntity.fileSize + '">' + t("删除") + "</span></div>" + (O.message ? O.message : "") + "</li>");
+              $li = b('<li id="' + O.id + '"><p class="title"><a target="_blank" href="imgdownload://' + window.location.origin + R + '">' + O.fileName + '</a></p><p class="imgWrap"><img src="' + M + '"/></p><p class="progress"><span></span></p><div class="file-panel"><span class="cancel ' + (!s.readonly ? "" : "hide") + '" fileUploadId="' + O.id + '" fileUrl="' + M + '" fileName="' + O.fileName + '" fileSize="' + O.fileEntity.fileSize + '">' + t("删除") + "</span></div>" + (O.message ? O.message : "") + "</li>");
               $li.on("mouseenter", function() {
                 var S = b(this).index();
                 C.find(".file-panel").eq(S).stop().animate({
@@ -1092,7 +1110,8 @@
       threads: 3,
       isLazy: false,
       preview: "",
-      useCapture: false
+      useCapture: false,
+      autoDownload: false
     }
   }
 )(jQuery);
