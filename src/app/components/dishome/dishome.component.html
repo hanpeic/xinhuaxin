@@ -7,5 +7,16 @@
 <div *ngFor="let route of routeList">
   <app-route [route]="route" ></app-route>
 </div>
+<input type="file" capture="camera" multiple>
+<input type="file" capture="camcorder" multiple>
+<input type="file" capture="camera" accept="image/*">
+<input type="file" capture="camera" multiple accept="image/*">
+<input type="file" capture="camcorder" accept="video/*">
+<input type="file" capture="camcorder" multiple accept="video/*">
+主要按钮：
+<input type="file" capture="camera" multiple="multiple" accept="image/*">
+<input type="file" capture="camcorder" multiple="multiple" accept="video/*">
+<input type="file" accept="image/*" multiple="multiple">
+<input type="file" accept="video/*" multiple="multiple">
 <div style="height: 42px"></div>
 <app-menu></app-menu>

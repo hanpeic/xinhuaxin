@@ -2899,7 +2899,8 @@
     
             _addFile: function( file ) {
                 var me = this;
-    
+                console.log(file);
+
                 file = me._wrapFile( file );
     
                 // 不过类型判断允许不允许，先派送 `beforeFileQueued`
