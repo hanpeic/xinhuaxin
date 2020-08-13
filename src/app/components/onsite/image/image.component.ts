@@ -45,7 +45,8 @@ export class ImageComponent implements OnInit, OnDestroy {
       },
       extendParams: {},
       isLazy: false,
-      preview: ''
+      preview: '',
+      autoDownload: true
     });
   }
 

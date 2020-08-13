@@ -103,7 +103,8 @@ export class FileComponent implements OnInit, OnChanges, OnDestroy {
       extendParams: {},
       isLazy: false,
       preview: '',
-      useCapture: this.useCapture
+      useCapture: this.useCapture,
+      autoDownload: true
     });
   }
   ngOnDestroy(): void {
