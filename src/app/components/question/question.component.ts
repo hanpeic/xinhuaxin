@@ -74,9 +74,9 @@ export class QuestionComponent implements OnInit {
     });
   }
   updateDisable() {
-    if (this.form.get('11') && this.form.get('11').value) {
-      this.multiChangeDisable('11', true);
-    } else {
+    //if (this.form.get('11') && this.form.get('11').value) {
+      // this.multiChangeDisable('11', true);
+    //} else {
       let ticked = false;
       (Object as any).keys(this.form.controls).forEach(key => {
         if (key !== '11') {
@@ -93,16 +93,16 @@ export class QuestionComponent implements OnInit {
         }
       });
       if (ticked) {
-        this.disableArray['11'] = true;
+        // this.disableArray['11'] = true;
       } else {
         this.multiChangeDisable(null, false);
       }
-    }
+    //}
   }
 
   updateEnable(key) {
     if (key === '11') {
-      this.multiChangeDisable(null, false);
+      //this.multiChangeDisable(null, false);
     } else {
       let ticked = false;
       const rules = this.ruleHash[key];
