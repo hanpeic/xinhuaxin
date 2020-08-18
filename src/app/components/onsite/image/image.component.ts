@@ -16,6 +16,8 @@ export class ImageComponent implements OnInit, OnDestroy {
   maxHeight: number;
   @Input()
   readonly: boolean;
+  @Input()
+  useCapture: boolean;
   constructor() { }
 
   ngOnInit(): void {
@@ -46,6 +48,7 @@ export class ImageComponent implements OnInit, OnDestroy {
       extendParams: {},
       isLazy: false,
       preview: '',
+      useCapture: this.useCapture,
       autoDownload: true
     });
   }

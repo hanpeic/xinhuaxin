@@ -31,8 +31,9 @@
              *ngIf="route && route.isDemoPic"></app-demo>
   <app-image [bizKey]="lineId + '-signin'" [picCount]="1"
              [maxWidth]="1024"
-            [maxHeight]="768"
+             [maxHeight]="768"
              [readonly]="!!route.signinDate"
+             [useCapture]="isDis ? true : false"
             ></app-image>
   <div class="row"  *ngIf="!route.signinDate">
     <div class="col-12">
